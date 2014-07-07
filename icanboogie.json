@@ -1,0 +1,8 @@
+{
+	"config-path": "config/",
+	"config-constructor": {
+
+		"activerecord.facets": "ICanBoogie\\ActiveRecord\\Facets\\Hooks::synthesize_config#activerecord"
+
+	}
+}
