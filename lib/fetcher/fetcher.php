@@ -19,6 +19,7 @@ namespace ICanBoogie\ActiveRecord;
  * @property-read array $modifiers An array of key/value used to filter/order/qualify the records.
  * @property-read Query $initial_query The initial query, before it is altered by the criteria,
  * conditions, order or limit.
+ * @property-read Query $query The query used to fetch the records.
  * @property-read QueryString $query_string A {@link QueryString} instance resolved from the `q`
  * modifier.
  * @property-read array $conditions An array of conditions used to filter the fetched records.
@@ -93,6 +94,23 @@ class Fetcher implements FetcherInterface
 		}
 
 		return $this->initial_query;
+	}
+
+	/**
+	 * The query used to fetch the records.
+	 *
+	 * @var Query
+	 */
+	private $query;
+
+	/**
+	 * Return the query used to fetch the records.
+	 *
+	 * @return Query
+	 */
+	protected function get_query()
+	{
+		return $this->query;
 	}
 
 	/**
