@@ -37,6 +37,7 @@ use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Fetcher;
 
 $model = ActiveRecord\get_model('articles');
+
 $fetcher = new Fetcher($model);
 $records = $fetcher([
 
@@ -53,6 +54,36 @@ $records = $fetcher([
 
 
 
+### Fetch records using a model
+
+The package adds the `fetch_records()` and `fetch_record()` methods to [Model][] instances,
+which allow for records to be fetched directly from the model, without requiring a [Fetcher][]
+instance to be built.
+
+```php
+$records = $model->fetch_records([
+
+	'year' => "2010..2014",
+	'is_online' => true,
+	'category' => "music",
+	'order' => "-date",
+	'limit' => 10
+
+]);
+```
+
+Note that the [Fetcher][] instance created to fetch the records can be obtained using the second
+argument of the methods.
+
+```php
+$records = $model->fetch_records($conditions, $fetcher);
+```
+
+
+
+
+
+
 ### Properties of interest
 
 Once the records have been returned the following properties might be of interest:
@@ -61,7 +92,6 @@ Once the records have been returned the following properties might be of interes
 - `conditions`: An array of conditions used to filter the fetched records.
 - `order`: The order in which records are fetched, as defined by the `order` modifier.
 - `count`: The number of records matching the query before the offset and limit were applied.
- 
 
 
 

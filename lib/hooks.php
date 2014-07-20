@@ -12,6 +12,7 @@
 namespace ICanBoogie\ActiveRecord\Facets;
 
 use ICanBoogie\ActiveRecord\CriterionList;
+use ICanBoogie\ActiveRecord\Fetcher;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\Core;
 
@@ -104,5 +105,48 @@ class Hooks
 		$instances[$model_id] = $criterion_list = new CriterionList($criteria);
 
 		return $criterion_list;
+	}
+
+	/**
+	 * Fetch the records matching the specified conditions.
+	 *
+	 * A {@link Fetcher} instance is used to fetch the records.
+	 *
+	 * @param Model $model
+	 * @param array $conditions
+	 * @param Fetcher $fetcher If the parameter `fetcher` is present, the {@link Fetcher}
+	 * instance created to fetch the records is stored inside.
+	 *
+	 * @return array
+	 */
+	static public function fetch_records(Model $model, array $conditions, &$fetcher=null)
+	{
+		$fetcher = new Fetcher($model);
+
+		return $fetcher($conditions);
+	}
+
+	/**
+	 * Fetch a record matching the specified conditions.
+	 *
+	 * The model's {@link fetch_records} prototype method is used to retrieve the record.
+	 *
+	 * @param Model $model
+	 * @param array $conditions
+	 * @param Fetcher $fetcher If the parameter `fetcher` is present, the {@link Fetcher}
+	 * instance created to fetch the record is stored inside.
+	 *
+	 * @return \ICanBoogie\ActiveRecord|null
+	 */
+	static public function fetch_record(Model $model, array $conditions, &$fetcher=null)
+	{
+		$records = $model->fetch_records($conditions + [ 'limit' => 1 ], $fetcher);
+
+		if (!$records)
+		{
+			return;
+		}
+
+		return current($records);
 	}
 }
