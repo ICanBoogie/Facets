@@ -80,6 +80,11 @@ class Hooks
 			$m = $m->parent_model;
 		}
 
+		if (!$criteria_list)
+		{
+			return [];
+		}
+
 		return call_user_func_array('array_merge', array_reverse($criteria_list));
 	}
 
