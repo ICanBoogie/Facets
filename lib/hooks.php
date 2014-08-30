@@ -145,7 +145,8 @@ class Hooks
 	 */
 	static public function fetch_record(Model $model, array $conditions, &$fetcher=null)
 	{
-		$records = $model->fetch_records($conditions + [ 'limit' => 1 ], $fetcher);
+		// `$model->fetch_records` would be best but it causes a reference problem :(
+		$records = self::fetch_records($model, $conditions + [ 'limit' => 1 ], $fetcher);
 
 		if (!$records)
 		{
