@@ -129,7 +129,7 @@ class QueryString implements \IteratorAggregate
 	{
 		$i = array_search($word, $this->words);
 
-		if ($i + 2 == count($this->words))
+		if ($i + 1 == count($this->words))
 		{
 			return;
 		}

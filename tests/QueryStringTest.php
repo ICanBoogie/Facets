@@ -35,4 +35,22 @@ class QueryStringTest extends \PHPUnit_Framework_TestCase
 		$words = $q->search('jumps lazy');
 		$this->assertEmpty($words);
 	}
+
+	public function test_next_word()
+	{
+		$q = new QueryString("one two three");
+		$words = $q->not_matched;
+		$this->assertSame($words[1], $words[0]->next);
+		$this->assertSame($words[2], $words[1]->next);
+		$this->assertSame(null, $words[2]->next);
+	}
+
+	public function test_previous_word()
+	{
+		$q = new QueryString("one two three");
+		$words = $q->not_matched;
+		$this->assertSame($words[1], $words[2]->previous);
+		$this->assertSame($words[0], $words[1]->previous);
+		$this->assertSame(null, $words[0]->previous);
+	}
 }
