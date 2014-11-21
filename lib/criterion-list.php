@@ -231,6 +231,31 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 
 		return $this;
 	}
+
+	/**
+	 * Return human readable values.
+	 *
+	 * @param array $conditions
+	 *
+	 * @return string[]
+	 */
+	public function humanize(array $conditions)
+	{
+		$humanized = [];
+
+		foreach ($this->criterion_list as $criterion_id => $criterion)
+		{
+			if (!isset($conditions[$criterion_id]) || $conditions[$criterion_id] === '')
+			{
+				continue;
+			}
+
+			$value = $criterion->parse_value($conditions[$criterion_id]);
+			$humanized[$criterion_id] = $criterion->format_humanized_value($criterion->humanize($value));
+		}
+
+		return array_filter($humanized);
+	}
 }
 
 /**

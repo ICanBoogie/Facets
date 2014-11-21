@@ -126,4 +126,38 @@ trait CriterionTrait
 	{
 
 	}
+
+	/**
+	 * Return a human readable value.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string|\ICanBoogie\ActiveRecord\IntervalCriterionValue
+	 */
+	public function humanize($value)
+	{
+		if ($value instanceof IntervalCriterionValue)
+		{
+			return "$value->min – $value->max";
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Format a humanized value, or array of values, into a string.
+	 *
+	 * @param mixed $humanized_value
+	 *
+	 * @return string
+	 */
+	public function format_humanized_value($humanized_value)
+	{
+		if (is_array($humanized_value))
+		{
+			return implode(', ', $humanized_value);
+		}
+
+		return $humanized_value;
+	}
 }
