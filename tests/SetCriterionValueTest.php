@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
 
 class SetCriterionValueTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,14 +20,12 @@ class SetCriterionValueTest extends \PHPUnit_Framework_TestCase
 	{
 		$v = SetCriterionValue::from($s);
 
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\SetCriterionValue', $v);
+		$this->assertInstanceOf(SetCriterionValue::class, $v);
 		$this->assertSame($expected, $v->to_array());
 	}
 
 	public function provide_test_from()
 	{
-		$s = IntervalCriterionValue::SEPARATOR;
-
 		return [
 
 			[ [ null ] ,   [ null ] ],

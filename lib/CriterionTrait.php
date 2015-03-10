@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
+
+use ICanBoogie\ActiveRecord\Query;
 
 /**
  * Trait for a generic criterion.
@@ -132,7 +134,7 @@ trait CriterionTrait
 	 *
 	 * @param mixed $value
 	 *
-	 * @return string|\ICanBoogie\ActiveRecord\IntervalCriterionValue
+	 * @return string|IntervalCriterionValue
 	 */
 	public function humanize($value)
 	{

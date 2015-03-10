@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
 
 use ICanBoogie\ToArray;
-use ICanBoogie\OffsetNotDefined;
+use ICanBoogie\ActiveRecord\Query;
 
 /**
  * A list of criteria.
@@ -95,7 +95,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param QueryString|string $q
 	 *
-	 * @return \ICanBoogie\ActiveRecord\QueryString
+	 * @return QueryString
 	 */
 	public function parse_query_string($q)
 	{
@@ -139,7 +139,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param Query $query
 	 *
-	 * @return \ICanBoogie\ActiveRecord\CriterionList
+	 * @return CriterionList
 	 */
 	public function alter_query(Query &$query)
 	{
@@ -160,7 +160,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param Query $query The query to alter.
 	 * @param array $values The critetia values, as returned by the {@link alter_conditions()} method.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\CriterionList
+	 * @return CriterionList
 	 */
 	public function alter_query_with_conditions(Query &$query, array $values)
 	{
@@ -192,7 +192,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param number $order_direction The direction of the order: 1 ascending, -1 descending.
 	 * Default: 1.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\CriterionList
+	 * @return CriterionList
 	 */
 	public function alter_query_with_order(Query &$query, $criterion_id, $order_direction=1)
 	{
@@ -220,7 +220,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param array $records
 	 *
-	 * @return \ICanBoogie\ActiveRecord\CriterionList
+	 * @return CriterionList
 	 */
 	public function alter_records(array &$records)
 	{
@@ -256,12 +256,4 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 
 		return array_filter($humanized);
 	}
-}
-
-/**
- * Exception thrown in attempt to use a criterion that is not defined.
- */
-class CriterionNotDefined extends OffsetNotDefined
-{
-
 }

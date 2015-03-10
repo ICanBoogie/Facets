@@ -1,4 +1,11 @@
-# Facets [![Build Status](https://travis-ci.org/ICanBoogie/Facets.png?branch=master)](https://travis-ci.org/ICanBoogie/Facets)
+# Facets
+
+[![Release](https://img.shields.io/packagist/v/icanboogie/facets.svg)](https://github.com/ICanBoogie/Facets/releases)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/Facets/master.svg)](http://travis-ci.org/ICanBoogie/Facets)
+[![HHVM](https://img.shields.io/hhvm/icanboogie/facets.svg)](http://hhvm.h4cc.de/package/icanboogie/facets)
+[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Facets/master.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Facets)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
+[![Packagist](https://img.shields.io/packagist/dt/icanboogie/facets.svg)](https://packagist.org/packages/icanboogie/facets)
 
 Together with the [icanboogie/activerecord] package, this library makes it easy to implement
 [faceted search][]. The library makes it especially easy to parse query strings (bag of words),
@@ -11,14 +18,14 @@ fetch records matching an array of conditions.
 
 ## Fetching records matching conditions
 
-A [Fetcher][] instance can be used to fetch records mathing a set of conditions. The _fetcher_
+A [Fetcher][] instance can be used to fetch records matching a set of conditions. The _fetcher_
 takes care of the various steps required to build the query and fetch the matching records. These
 steps can be summarized as follows:
 
 1. Parse the specified modifiers and extract conditions, offset, limit, order and query string.
 2. Build the initial query.
 3. Invoke criteria to alter the query.
-4. Alter the query with the condtions.
+4. Alter the query with the conditions.
 5. Count the total number of records that match the query.
 6. Alter the query with the order.
 7. Alter the query with the offset and limit.
@@ -356,7 +363,7 @@ $criterion_list = $model->criterion_list;
 
 ## Requirements
 
-The minimum requirement is PHP 5.4.
+The minimum requirement is PHP 5.5.
 
 
 
@@ -364,18 +371,10 @@ The minimum requirement is PHP 5.4.
 
 ## Installation
 
-The recommended way to install this package is through [Composer](http://getcomposer.org/).
-Create a `composer.json` file and run `php composer.phar install` command to install it:
+The recommended way to install this package is through [Composer](http://getcomposer.org/):
 
-```json
-{
-	"minimum-stability": "dev",
-
-	"require":
-	{
-		"icanboogie/facets": "*"
-	}
-}
+```
+$ composer require icanboogie/facets
 ```
 
 The following packages are required, you might want to check them out:
@@ -391,7 +390,7 @@ The following packages are required, you might want to check them out:
 The package is [available on GitHub](https://github.com/ICanBoogie/Facets), its repository can be
 cloned with the following command line:
 
-	$ git clone git://github.com/ICanBoogie/Facets.git
+	$ git clone https://github.com/ICanBoogie/Facets.git
 
 
 
@@ -399,11 +398,8 @@ cloned with the following command line:
 
 ## Documentation
 
-The documentation for the package and its dependencies can be generated with the `make doc`
-command. The documentation is generated in the `docs` directory using [ApiGen](http://apigen.org/).
-The package directory can later by cleaned with the `make clean` command.
-
-The documentation for the complete framework is also available online: <http://icanboogie.org/docs/>
+The package is documented as part of the [ICanBoogie][] framework
+[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
 
 
 
@@ -411,13 +407,12 @@ The documentation for the complete framework is also available online: <http://i
 
 ## Testing
 
-The test suite is ran with the `make test` command. [Composer](http://getcomposer.org/) is
-automatically installed as well as all dependencies required to run the suite. You can later
-clean the directory with the `make clean` command.
+The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and [Composer](http://getcomposer.org/) need to be globally available to run the suite. The command installs dependencies as required. The `make test-coverage` command runs test suite and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
-[![Build Status](https://travis-ci.org/ICanBoogie/Facets.png?branch=master)](https://travis-ci.org/ICanBoogie/Facets)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/Facets/master.svg)](https://travis-ci.org/ICanBoogie/Facets)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
 
 
 
@@ -425,7 +420,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 ## License
 
-This package is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
+**icanboogie/facets** is licensed under the New BSD License. See the [LICENSE](LICENSE) file for details.
 
 
 

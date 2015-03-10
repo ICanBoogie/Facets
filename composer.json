@@ -17,24 +17,23 @@
 		"issues": "https://github.com/ICanBoogie/Facets/issues",
 		"source": "https://github.com/ICanBoogie/Facets"
 	},
-	"minimum-stability": "dev",
+
 	"require": {
-		"php": ">=5.4.0",
-		"icanboogie/activerecord": "2.x"
+		"php": ">=5.5.0",
+		"icanboogie/activerecord": "~2.2.0"
 	},
+
 	"autoload": {
-		"classmap": [ "lib/" ]
+		"psr-4": {
+			"ICanBoogie\\Facets\\": "lib"
+		}
 	},
 
 	"extra": {
-
 		"icanboogie": {
-
 			"config-path": "config",
 			"config-constructor": {
-
-				"activerecord.facets": "ICanBoogie\\ActiveRecord\\Facets\\Hooks::synthesize_config#activerecord"
-
+				"activerecord.facets": "ICanBoogie\\Facets\\Hooks::synthesize_config#activerecord"
 			}
 		}
 	}

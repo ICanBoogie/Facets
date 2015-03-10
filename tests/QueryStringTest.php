@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
 
 class QueryStringTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,14 +19,14 @@ class QueryStringTest extends \PHPUnit_Framework_TestCase
 
 		$words = $q->search('brÔwN Föx');
 		$this->assertEquals(2, count($words));
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\QueryStringWord', $words[0]);
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\QueryStringWord', $words[1]);
+		$this->assertInstanceOf(QueryStringWord::class, $words[0]);
+		$this->assertInstanceOf(QueryStringWord::class, $words[1]);
 		$this->assertEquals('brown', $words[0]->normalized);
 		$this->assertEquals('fox', $words[1]->normalized);
 
 		$words = $q->search('Dôg');
 		$this->assertEquals(1, count($words));
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\QueryStringWord', $words[0]);
+		$this->assertInstanceOf(QueryStringWord::class, $words[0]);
 		$this->assertEquals('dog', $words[0]->normalized);
 
 		$words = $q->search('dog poop');

@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
+
+use ICanBoogie\ActiveRecord\Query;
 
 /**
  * Interface for an active record fetcher that supports external conditions.
@@ -44,7 +46,7 @@ interface FetcherInterface
 	 *
 	 * A {@link CriterionList} instance is usually used to parse the query string.
 	 *
-	 * @param \ICanBoogie\ActiveRecord\QueryString $q
+	 * @param QueryString $q
 	 */
 	public function parse_query_string($q);
 

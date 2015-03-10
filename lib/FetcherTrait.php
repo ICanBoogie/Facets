@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
+
+use ICanBoogie\ActiveRecord\Query;
 
 /**
  * Traits for an active record fetcher class.

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
 
 /**
  * A trait that implements `humanize()` and can be provided with pairs of key/value where key is

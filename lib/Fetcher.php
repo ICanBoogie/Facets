@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
+
+use ICanBoogie\Accessor\AccessorTrait;
+use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\Query;
 
 /**
  * Fetch records from a model.
@@ -30,8 +34,8 @@ namespace ICanBoogie\ActiveRecord;
  */
 class Fetcher implements FetcherInterface
 {
-	use \ICanBoogie\PrototypeTrait;
-	use \ICanBoogie\ActiveRecord\FetcherTrait;
+	use AccessorTrait;
+	use FetcherTrait;
 
 	/**
 	 * The model from witch records are fetched.
@@ -43,7 +47,7 @@ class Fetcher implements FetcherInterface
 	/**
 	 * Return the {@link $model} property.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\Model
+	 * @return Model
 	 */
 	protected function get_model()
 	{
@@ -84,7 +88,7 @@ class Fetcher implements FetcherInterface
 	/**
 	 * Return the {@link $initial_query} property.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\Query
+	 * @return Query
 	 */
 	protected function get_initial_query()
 	{
@@ -123,7 +127,7 @@ class Fetcher implements FetcherInterface
 	/**
 	 * Return the {@link $query_string} property.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\QueryString
+	 * @return QueryString
 	 */
 	protected function get_query_string()
 	{
@@ -267,7 +271,7 @@ class Fetcher implements FetcherInterface
 	/**
 	 * Create the initial query.
 	 *
-	 * @return \ICanBoogie\ActiveRecord\Query
+	 * @return Query
 	 */
 	protected function create_initial_query()
 	{

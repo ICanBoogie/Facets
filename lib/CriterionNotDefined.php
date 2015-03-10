@@ -11,14 +11,12 @@
 
 namespace ICanBoogie\Facets;
 
-class CriterionListTest extends \PHPUnit_Framework_TestCase
+use ICanBoogie\OffsetNotDefined;
+
+/**
+ * Exception thrown in attempt to use a criterion that is not defined.
+ */
+class CriterionNotDefined extends OffsetNotDefined
 {
-	/**
-	 * @expectedException \ICanBoogie\Facets\CriterionNotDefined
-	 */
-	public function test_get_undefined()
-	{
-		$l = new CriterionList;
-		$l['undefined'];
-	}
+
 }

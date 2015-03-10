@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
 
 class CriterionValue
 {
@@ -25,7 +25,7 @@ class CriterionValue
 	 *
 	 * @param mixed $value
 	 *
-	 * @return \ICanBoogie\ActiveRecord\SetCriterionValue|\ICanBoogie\ActiveRecord\IntervalCriterionValue|mixed
+	 * @return SetCriterionValue|IntervalCriterionValue|mixed
 	 */
 	static public function from($value)
 	{
@@ -78,6 +78,6 @@ class CriterionValue
 
 	public function __toString()
 	{
-		return (string) $value;
+		return (string) $this->value;
 	}
 }

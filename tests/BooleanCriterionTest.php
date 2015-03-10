@@ -9,7 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\ActiveRecord;
+namespace ICanBoogie\Facets;
+
+use ICanBoogie\ActiveRecord\ConnectionCollection;
+use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\Query;
 
 class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,22 +22,31 @@ class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
 
 	static public function setupBeforeClass()
 	{
-		self::$model = new Model([
+		$connections = new ConnectionCollection([
 
-			Model::CONNECTION => new Connection('sqlite::memory:'),
-			Model::NAME => 'example',
-			Model::SCHEMA => [
-
-				'fields' => [
-
-					'id' => 'serial',
-					'is_online' => 'boolean'
-
-				]
-
-			]
+			'primary' => 'sqlite::memory:'
 
 		]);
+
+		$models = new ModelCollection($connections, [
+
+			'one' => [
+
+				Model::NAME => 'example',
+				Model::SCHEMA => [
+
+					'fields' => [
+
+						'id' => 'serial',
+						'is_online' => 'boolean'
+
+					]
+
+				]
+			]
+		]);
+
+		self::$model = $models['one'];
 	}
 
 	/**
