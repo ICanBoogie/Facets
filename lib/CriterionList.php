@@ -11,8 +11,8 @@
 
 namespace ICanBoogie\Facets;
 
-use ICanBoogie\ToArray;
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\ToArray;
 
 /**
  * A list of criteria.
@@ -31,7 +31,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param array $criterion_list A list of criteria.
 	 */
-	public function __construct(array $criterion_list=[])
+	public function __construct(array $criterion_list = [])
 	{
 		foreach ($criterion_list as $criterion_id => &$criterion)
 		{
@@ -91,7 +91,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	}
 
 	/**
-	 * Parses the query string and mark words matched by criteria.
+	 * Parses the query string and marks words matched by criteria.
 	 *
 	 * @param QueryString|string $q
 	 *
@@ -158,7 +158,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * matching the a value.
 	 *
 	 * @param Query $query The query to alter.
-	 * @param array $values The critetia values, as returned by the {@link alter_conditions()} method.
+	 * @param array $values The criteria values, as returned by the {@link alter_conditions()} method.
 	 *
 	 * @return CriterionList
 	 */
@@ -189,12 +189,12 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param Query $query
 	 * @param string $criterion_id Criterion identifier. If prefixed with the minus sign "-"
 	 * `$order_direction` is overrode with `-1`.
-	 * @param number $order_direction The direction of the order: 1 ascending, -1 descending.
+	 * @param int $order_direction The direction of the order: 1 ascending, -1 descending.
 	 * Default: 1.
 	 *
 	 * @return CriterionList
 	 */
-	public function alter_query_with_order(Query &$query, $criterion_id, $order_direction=1)
+	public function alter_query_with_order(Query &$query, $criterion_id, $order_direction = 1)
 	{
 		if ($criterion_id{0} == '-')
 		{
@@ -233,7 +233,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	}
 
 	/**
-	 * Return human readable values.
+	 * Returns human readable values.
 	 *
 	 * @param array $conditions
 	 *

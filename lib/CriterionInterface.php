@@ -18,17 +18,24 @@ use ICanBoogie\ActiveRecord\Query;
  */
 interface CriterionInterface
 {
+	/**
+	 * Parses the query string and marks words matched by the criterion.
+	 *
+	 * @param QueryString $q
+	 *
+	 * @return QueryString
+	 */
 	public function parse_query_string(QueryString $q);
 
 	/**
-	 * Parse a criterion value.
+	 * Parses a criterion value.
 	 *
 	 * @param mixed $value
 	 */
 	public function parse_value($value);
 
 	/**
-	 * Alter the conditions according to the specified modifiers.
+	 * Alters the conditions according to the specified modifiers.
 	 *
 	 * @param array $conditions The conditions to alter.
 	 * @param array $modifiers The modifiers.
@@ -47,7 +54,7 @@ interface CriterionInterface
 	/**
 	 * Alters the query according to the value specified.
 	 *
-	 * Note: The method is only invoked if a value key matches the criterion identifier.
+	 * **Note:** The method is only invoked if a value key matches the criterion identifier.
 	 *
 	 * @param Query $query
 	 * @param mixed $value
@@ -60,7 +67,7 @@ interface CriterionInterface
 	 * Alters the ORDER clause of the query according to the column identifier and the order
 	 * direction.
 	 *
-	 * Note: The method is only invoked if the ordering column matches the criterion identifier.
+	 * **Note:** The method is only invoked if the ordering column matches the criterion identifier.
 	 *
 	 * @param Query $query
 	 * @param int $order_direction
@@ -72,9 +79,9 @@ interface CriterionInterface
 	/**
 	 * Alters the records.
 	 *
-	 * @param array $records
+	 * @param \ICanBoogie\ActiveRecord[] $records
 	 *
-	 * @return array[]ActiveRecord
+	 * @return \ICanBoogie\ActiveRecord[]
 	 */
 	public function alter_records(array &$records);
 }

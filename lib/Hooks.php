@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Facets;
 
+use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\Core;
+
 class Hooks
 {
 	/**
@@ -59,7 +62,7 @@ class Hooks
 	static public function criteria_from(Model $model)
 	{
 		$criteria_list = [];
-		$facets = Core::get()->configs['activerecord.facets'];
+		$facets = \ICanBoogie\app()->configs['activerecord.facets'];
 
 		$m = $model;
 
@@ -119,7 +122,7 @@ class Hooks
 	 *
 	 * @return array
 	 */
-	static public function fetch_records(Model $model, array $conditions, &$fetcher=null)
+	static public function fetch_records(Model $model, array $conditions, &$fetcher = null)
 	{
 		$fetcher = new Fetcher($model);
 
@@ -145,7 +148,7 @@ class Hooks
 
 		if (!$records)
 		{
-			return;
+			return null;
 		}
 
 		return current($records);

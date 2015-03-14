@@ -22,18 +22,25 @@ class IntervalCriterionValue implements ToArray
 {
 	const SEPARATOR = '..';
 
+	/**
+	 * Instantiate a {@link IntervalCriterionValue} instance from a value.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return IntervalCriterionValue|null
+	 */
 	static public function from($value)
 	{
 		if (!$value)
 		{
-			return;
+			return null;
 		}
 
 		if (is_array($value))
 		{
 			if (!array_key_exists('min', $value) || !array_key_exists('max', $value))
 			{
-				return;
+				return null;
 			}
 
 			$min = $value['min'];
@@ -45,14 +52,14 @@ class IntervalCriterionValue implements ToArray
 
 			if ($value === self::SEPARATOR || strpos($value, self::SEPARATOR) === false)
 			{
-				return;
+				return null;
 			}
 
 			$interval = explode(self::SEPARATOR, $value);
 
 			if (count($interval) != 2)
 			{
-				return;
+				return null;
 			}
 
 			list($min, $max) = array_map('trim', $interval);
@@ -73,6 +80,11 @@ class IntervalCriterionValue implements ToArray
 		$this->max = $max;
 	}
 
+	/**
+	 * Formats the interval as a string.
+	 *
+	 * @return string
+	 */
 	public function __toString()
 	{
 		if (!$this->min && !$this->max)
@@ -88,6 +100,9 @@ class IntervalCriterionValue implements ToArray
 		return $this->min . self::SEPARATOR . $this->max;
 	}
 
+	/**
+	 * @return array An array made of the {@link $min} and {@link max} values.
+	 */
 	public function to_array()
 	{
 		return [ $this->min, $this->max ];

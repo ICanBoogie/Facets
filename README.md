@@ -41,7 +41,7 @@ of 10 articles can be fetched, and they are ordered starting with the most recen
 <?php
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\Fetcher;
+use ICanBoogie\Facets\Fetcher;
 
 $model = ActiveRecord\get_model('articles');
 
@@ -112,7 +112,7 @@ If using a [Fetcher][] instance is not enough of a challenge for you, you can us
 ```php
 <?php
 
-use ICanBoogie\ActiveRecord\CriterionList;
+use ICanBoogie\Facets\CriterionList;
 
 $criterion_list = new CriterionList([
 

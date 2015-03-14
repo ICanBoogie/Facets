@@ -16,15 +16,19 @@ namespace ICanBoogie\Facets;
  */
 class BooleanCriterion extends Criterion
 {
+	/**
+	 * @inheritdoc
+	 */
 	public function parse_value($value)
 	{
 		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function parse_query_string(QueryString $q)
 	{
-		/* @var $word QueryStringWord */
-
 		foreach ($q->not_matched as $word)
 		{
 			if ($word->normalized !== $this->id)

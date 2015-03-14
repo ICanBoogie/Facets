@@ -26,19 +26,42 @@ trait CriterionTrait
 	protected $id;
 
 	/**
+	 * Returns the criterion's identifier.
+	 */
+	protected function get_id()
+	{
+		return $this->id;
+	}
+
+	/**
 	 * The column name of the criterion, as in a SQL table.
 	 *
 	 * @var string
 	 */
 	protected $column_name;
 
+	/**
+	 * Returns the criterion's column name, or if it is empty the criterion's identifier.
+	 */
+	protected function get_column_name()
+	{
+		return $this->column_name ?: $this->id;
+	}
+
+	/**
+	 * Parses the query string and marks words matched by the criterion.
+	 *
+	 * @param QueryString $q
+	 *
+	 * @return QueryString
+	 */
 	public function parse_query_string(QueryString $q)
 	{
 		return $q;
 	}
 
 	/**
-	 * Parse the criterion value using {@link CriterionValue::from()}.
+	 * Parses the criterion value using {@link CriterionValue::from()}.
 	 *
 	 * @param mixed $value
 	 *
@@ -118,6 +141,8 @@ trait CriterionTrait
 	 *
 	 * @param Query $query
 	 * @param int $order_direction "DESC" if inferior to 0, "ASC" otherwise.
+	 *
+	 * @return Query
 	 */
 	public function alter_query_with_order(Query $query, $order_direction)
 	{
@@ -130,7 +155,7 @@ trait CriterionTrait
 	}
 
 	/**
-	 * Return a human readable value.
+	 * Returns a human readable value.
 	 *
 	 * @param mixed $value
 	 *
@@ -147,7 +172,7 @@ trait CriterionTrait
 	}
 
 	/**
-	 * Format a humanized value, or array of values, into a string.
+	 * Formats a humanized value, or array of values, into a string.
 	 *
 	 * @param mixed $humanized_value
 	 *

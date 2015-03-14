@@ -22,11 +22,18 @@ class SetCriterionValue implements ToArray, \Countable
 {
 	const SEPARATOR = '|';
 
+	/**
+	 * Instantiate a {@link SetCriterionValue} instance from a value.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return SetCriterionValue|null
+	 */
 	static public function from($value)
 	{
 		if (!$value)
 		{
-			return;
+			return null;
 		}
 
 		if (is_array($value))
@@ -44,7 +51,7 @@ class SetCriterionValue implements ToArray, \Countable
 
 			if ($value === SetCriterionValue::SEPARATOR || strpos($value, SetCriterionValue::SEPARATOR) === false)
 			{
-				return;
+				return null;
 			}
 
 			$set = explode(self::SEPARATOR, $value);
@@ -64,16 +71,31 @@ class SetCriterionValue implements ToArray, \Countable
 		$this->set = $set;
 	}
 
+	/**
+	 * Formats the set into a string.
+	 *
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return implode(self::SEPARATOR, $this->set);
 	}
 
+	/**
+	 * Returns the number of members in the set.
+	 *
+	 * @return int
+	 */
 	public function count()
 	{
 		return count($this->set);
 	}
 
+	/**
+	 * Returns the set as an array.
+	 *
+	 * @return array
+	 */
 	public function to_array()
 	{
 		return $this->set;

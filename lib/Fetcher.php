@@ -205,12 +205,12 @@ class Fetcher implements FetcherInterface
 	}
 
 	/**
-	 * Initialiazes the {@link $model}, {@link $options} and {@link $criterion_list} properties.
+	 * Initializes the {@link $model}, {@link $options} and {@link $criterion_list} properties.
 	 *
 	 * @param Model $model
 	 * @param array $options
 	 */
-	public function __construct(Model $model, array $options=[])
+	public function __construct(Model $model, array $options = [])
 	{
 		$this->model = $model;
 		$this->options = $options;
@@ -300,27 +300,24 @@ class Fetcher implements FetcherInterface
 		$limit = $modifiers['limit'];
 		$offset = $limit ? $modifiers['page'] * $limit : null;
 		$query_string = $this->parse_query_string($modifiers['q']);
+		$matches = $query_string->matches;
 
-		if ($query_string->matches)
+		if ($matches)
 		{
-			$modifiers += array_map(function($v) { return implode('|', $v); }, $query_string->matches);
+			$modifiers += array_map(function($v) { return implode('|', $v); }, $matches);
 		}
 
 		$conditions = [];
 
 		$this->alter_conditions($conditions, $modifiers);
 
-		return [
+		return [ $conditions, [
 
-			$conditions, [
+			'order' => $order,
+			'limit' => $limit,
+			'offset' => $offset,
+			'query_string' => $query_string
 
-				'order' => $order,
-				'limit' => $limit,
-				'offset' => $offset,
-				'query_string' => $query_string
-
-			]
-
-		];
+		] ];
 	}
 }

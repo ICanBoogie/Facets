@@ -11,12 +11,13 @@
 
 namespace ICanBoogie\Facets;
 
+use ICanBoogie\ActiveRecord\Exception;
 use ICanBoogie\OffsetNotDefined;
 
 /**
  * Exception thrown in attempt to use a criterion that is not defined.
  */
-class CriterionNotDefined extends OffsetNotDefined
+class CriterionNotDefined extends OffsetNotDefined implements Exception
 {
 
 }

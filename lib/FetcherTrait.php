@@ -27,28 +27,34 @@ trait FetcherTrait
 	 */
 	protected $criterion_list;
 
+	/**
+	 * Returns the criterion list.
+	 *
+	 * @return CriterionList
+	 */
 	protected function get_criterion_list()
 	{
 		return $this->criterion_list;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_criterion_list(CriterionList $criterion_list)
 	{
 		return $criterion_list;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function parse_query_string($q)
 	{
 		return $this->criterion_list->parse_query_string($q);
 	}
 
 	/**
-	 * Return the conditions altered by the {@link CriterionList} instance.
-	 *
-	 * @param array $conditions
-	 * @param array $modifiers
-	 *
-	 * @return array The altered criterion list.
+	 * @inheritdoc
 	 */
 	public function alter_conditions(array &$conditions, array $modifiers)
 	{
@@ -57,6 +63,9 @@ trait FetcherTrait
 		return $conditions;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_query(Query $query)
 	{
 		$this->criterion_list->alter_query($query);
@@ -64,6 +73,9 @@ trait FetcherTrait
 		return $query;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_query_with_conditions(Query $query, array $conditions)
 	{
 		$this->criterion_list->alter_query_with_conditions($query, $conditions);
@@ -71,6 +83,9 @@ trait FetcherTrait
 		return $query;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_query_with_order(Query $query, $criterion_id, $order_direction=1)
 	{
 		$this->criterion_list->alter_query_with_order($query, $criterion_id, $order_direction);
@@ -78,21 +93,33 @@ trait FetcherTrait
 		return $query;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function count_records(Query $query)
 	{
 		return $query->count;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_query_with_limit(Query $query, $offset, $limit)
 	{
 		return $query->limit($offset, $limit);
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function fetch_records(Query $query)
 	{
 		return $query->all;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function alter_records(array &$records)
 	{
 		$this->criterion_list->alter_records($records);

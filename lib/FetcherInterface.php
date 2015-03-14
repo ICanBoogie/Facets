@@ -19,7 +19,7 @@ use ICanBoogie\ActiveRecord\Query;
 interface FetcherInterface
 {
 	/**
-	 * Alter the {@link CriterionList} instance generaly provided during construct.
+	 * Alter the {@link CriterionList} instance usually provided during construct.
 	 *
 	 * @param CriterionList $criterion_list
 	 */
@@ -84,7 +84,7 @@ interface FetcherInterface
 	 *
 	 * @return Query The altered query.
 	 */
-	public function alter_query_with_order(Query $query, $criterion_id, $order_direction=1);
+	public function alter_query_with_order(Query $query, $criterion_id, $order_direction = 1);
 
 	/**
 	 * Counts the number of records that are matching the query.

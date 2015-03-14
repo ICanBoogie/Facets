@@ -14,6 +14,8 @@ namespace ICanBoogie\Facets;
 use ICanBoogie\Accessor\AccessorTrait;
 
 /**
+ * Representation of a query string.
+ *
  * @property-read QueryStringWord[] $matched Query string words for which a match was found.
  * @property-read QueryStringWord[] $not_matched Query string words for which no match was found.
  */
@@ -80,7 +82,7 @@ class QueryString implements \IteratorAggregate
 
 			if ($word->normalized != $normalized_word)
 			{
-				if ($matches) return;
+				if ($matches) return null;
 
 				continue;
 			}
@@ -93,7 +95,7 @@ class QueryString implements \IteratorAggregate
 
 		if ($i != $count)
 		{
-			return;
+			return null;
 		}
 
 		return $matches;
@@ -112,7 +114,7 @@ class QueryString implements \IteratorAggregate
 
 		if ($i == 0)
 		{
-			return;
+			return null;
 		}
 
 		return $this->words[$i - 1];
@@ -131,7 +133,7 @@ class QueryString implements \IteratorAggregate
 
 		if ($i + 1 == count($this->words))
 		{
-			return;
+			return null;
 		}
 
 		return $this->words[$i + 1];
@@ -181,6 +183,11 @@ class QueryString implements \IteratorAggregate
 		return $rc;
 	}
 
+	/**
+	 * Returns the query string words that have a match.
+	 *
+	 * @return QueryStringWord[]
+	 */
 	protected function get_matches()
 	{
 		$matches = [];

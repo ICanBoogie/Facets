@@ -11,6 +11,11 @@
 
 namespace ICanBoogie\Facets;
 
+/**
+ * Representation of a generic criterion value.
+ *
+ * @package ICanBoogie\Facets
+ */
 class CriterionValue
 {
 	/**
@@ -33,7 +38,7 @@ class CriterionValue
 		|| $value === SetCriterionValue::SEPARATOR
 		|| $value === IntervalCriterionValue::SEPARATOR)
 		{
-			return;
+			return null;
 		}
 
 		#

@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\Facets;
 
-use ICanBoogie\PropertyNotDefined;
+use ICanBoogie\Accessor\AccessorTrait;
 
 /**
  * Representation of a query string word.
@@ -22,10 +22,44 @@ use ICanBoogie\PropertyNotDefined;
  */
 class QueryStringWord
 {
-	protected $word;
-	protected $normalized;
+	use AccessorTrait;
+
 	public $match = [];
+
+	/**
+	 * @var string
+	 */
+	protected $word;
+
+	/**
+	 * Normalized {@link $word}.
+	 *
+	 * @var string
+	 */
+	protected $normalized;
+
+	protected function get_normalized()
+	{
+		return $this->normalized;
+	}
+
 	protected $q;
+
+	/**
+	 * @return QueryStringWord|null
+	 */
+	protected function get_previous()
+	{
+		return $this->q->before($this);
+	}
+
+	/**
+	 * @return QueryStringWord|null
+	 */
+	protected function get_next()
+	{
+		return $this->q->after($this);
+	}
 
 	public function __construct($word, QueryString $q)
 	{
@@ -34,28 +68,13 @@ class QueryStringWord
 		$this->q = $q;
 	}
 
+	/**
+	 * Returns the query string word.
+	 *
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return $this->word;
-	}
-
-	public function __get($property)
-	{
-		switch ($property)
-		{
-			case 'normalized':
-
-				return $this->normalized;
-
-			case 'previous':
-
-				return $this->q->before($this);
-
-			case 'next':
-
-				return $this->q->after($this);
-		}
-
-		throw new PropertyNotDefined([ $property, $this]);
 	}
 }

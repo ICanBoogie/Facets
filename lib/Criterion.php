@@ -30,27 +30,9 @@ class Criterion implements CriterionInterface
 	 * @param string $id
 	 * @param array $options
 	 */
-	public function __construct($id, array $options=[])
+	public function __construct($id, array $options = [])
 	{
 		$this->id = $id;
 		$this->column_name = empty($options['column_name']) ? $id : $options['column_name'];
-	}
-
-	/**
-	 * Returns the critetion's identifier.
-	 */
-	protected function get_id()
-	{
-		return $this->id;
-	}
-
-	/**
-	 * Returns the criterion's column name.
-	 *
-	 * Note: If it is not defined, the column name defaults to the criterion's identifier.
-	 */
-	protected function get_column_name()
-	{
-		return $this->column_name ?: $this->id;
 	}
 }

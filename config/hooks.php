@@ -1,6 +1,6 @@
 <?php
 
-namespace ICanBoogie\ActiveRecord\Facets;
+namespace ICanBoogie\Facets;
 
 $hooks = __NAMESPACE__ . '\Hooks::';
 
