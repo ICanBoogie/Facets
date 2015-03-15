@@ -27,14 +27,5 @@
 		"psr-4": {
 			"ICanBoogie\\Facets\\": "lib"
 		}
-	},
-
-	"extra": {
-		"icanboogie": {
-			"config-path": "config",
-			"config-constructor": {
-				"activerecord.facets": "ICanBoogie\\Facets\\Hooks::synthesize_config#activerecord"
-			}
-		}
 	}
 }
