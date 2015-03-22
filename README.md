@@ -26,7 +26,7 @@ A [Fetcher][] instance can be used to fetch records matching a set of conditions
 7. Alter the query with the offset and limit.
 8. Fetch the records matching the query.
 9. Invoke criteria to alter the records.
-10. Return the records.
+10. Return a [RecordCollection][] instance containing the records.
 
 The following example demonstrates how a [Fetcher][] instance can be used to fetch online articles that are classified in the "music" category, and were published between 2010 and 2014. A maximum of 10 articles can be fetched, and they are ordered starting with the most recent:
 
@@ -398,8 +398,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [IntervalCriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.IntervalCriterionValue.html
 [Model]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.Model.html
 [QueryString]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.QueryString.html
+[RecordCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.RecordCollection.html
 [SetCriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.SetCriterionValue.html
-
 [alter_query_with_value()]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionTrait#_alter_query_with_value.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [icanboogie/bind-facets]: https://github.com/ICanBoogie/bind-facets

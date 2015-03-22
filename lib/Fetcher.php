@@ -31,6 +31,8 @@ use ICanBoogie\ActiveRecord\Query;
  * modifier.
  * @property-read int $count The number of records matching the query before the offset and limit
  * is applied.
+ * @property-read int $limit The maximum number of records that can be fetched, as defined by the
+ * `limit` modifier.
  */
 class Fetcher implements FetcherInterface
 {
@@ -187,6 +189,23 @@ class Fetcher implements FetcherInterface
 
 	protected $offset;
 
+	protected function get_offset()
+	{
+		return $this->offset;
+	}
+
+	protected function get_page()
+	{
+		$limit = $this->limit;
+
+		if (!$limit)
+		{
+			return 0;
+		}
+
+		return (int) ($this->offset / $this->limit);
+	}
+
 	/**
 	 * Number of records matching the query, before they are limited.
 	 *
@@ -215,6 +234,16 @@ class Fetcher implements FetcherInterface
 		$this->model = $model;
 		$this->options = $options;
 		$this->criterion_list = $this->alter_criterion_list($model->criterion_list);
+	}
+
+	/**
+	 * Clones the {@link initial_query}, {@link query}, and {@link query_string} properties.
+	 */
+	public function __clone()
+	{
+		$this->initial_query = clone $this->initial_query;
+		$this->query = clone $this->query;
+		$this->query_string = clone $this->query_string;
 	}
 
 	/**
@@ -265,7 +294,7 @@ class Fetcher implements FetcherInterface
 
 		$this->alter_records($records);
 
-		return $records;
+		return new RecordCollection($records, clone $this);
 	}
 
 	/**
