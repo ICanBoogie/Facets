@@ -94,6 +94,24 @@ Once the records have been returned the following properties might be of interes
 
 
 
+### Altering the fetched records
+
+Fetched records are returned as a [RecordCollection][] instance, such an instance can be used to fire the `alter` event of class [RecordCollection\AlterEvent][]. Event hooks may use this event to alter the records of the collection, for instance fetching the images associated with a collection of articles using a single query.
+
+```php
+<?php
+
+use ICanBoogie\Facets\RecordCollection;
+
+$records = $fetcher(…);
+
+new RecordCollection\AlterEvent($records);
+```
+
+
+
+
+
 ## Fetching records using a `CriterionList` instance
 
 If using a [Fetcher][] instance is not enough of a challenge for you, you can use a [CriterionList][] instead and do all the hard work yourself:
@@ -399,6 +417,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Model]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.Model.html
 [QueryString]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.QueryString.html
 [RecordCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.RecordCollection.html
+[RecordCollection\AlterEvent]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.RecordCollection.AlterEvent.html
 [SetCriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.SetCriterionValue.html
 [alter_query_with_value()]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionTrait#_alter_query_with_value.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
