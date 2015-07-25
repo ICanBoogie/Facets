@@ -18,13 +18,15 @@
 		"source": "https://github.com/ICanBoogie/Facets"
 	},
 
+	"minimum-stability": "dev",
+
 	"require": {
 		"php": ">=5.5.0",
-		"icanboogie/activerecord": "~2.2.0"
+		"icanboogie/activerecord": "^2.3.0"
 	},
 
 	"require-dev": {
-		"icanboogie/event": "~1.3.1"
+		"icanboogie/event": "^1.4.0"
 	},
 
 	"autoload": {

@@ -383,7 +383,10 @@ The package is [available on GitHub](https://github.com/ICanBoogie/Facets), its 
 ## Documentation
 
 The package is documented as part of the [ICanBoogie][] framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
+[documentation][]. You can generate the documentation for the package and its dependencies with
+the `make doc` command. The documentation is generated in the `build/docs` directory.
+[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with
+the `make clean` command.
 
 
 
@@ -391,7 +394,11 @@ The package is documented as part of the [ICanBoogie][] framework
 
 ## Testing
 
-The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and [Composer](http://getcomposer.org/) need to be globally available to run the suite. The command installs dependencies as required. The `make test-coverage` command runs test suite and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with the `make clean` command.
+The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and
+[Composer](http://getcomposer.org/) need to be globally available to run the suite.
+The command installs dependencies as required. The `make test-coverage` command runs test suite
+and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned
+with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
@@ -409,20 +416,21 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[CriterionList]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionList.html
-[CriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionValue.html
-[Fetcher]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.Fetcher.html
-[ICanBoogie]: http://icanboogie.org/
-[IntervalCriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.IntervalCriterionValue.html
-[Model]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.Model.html
-[QueryString]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.QueryString.html
-[RecordCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.RecordCollection.html
-[RecordCollection\AlterEvent]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.RecordCollection.AlterEvent.html
-[SetCriterionValue]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.SetCriterionValue.html
-[alter_query_with_value()]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionTrait#_alter_query_with_value.html
-[icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
-[icanboogie/bind-facets]: https://github.com/ICanBoogie/bind-facets
-[icanboogie/prototype]: https://github.com/ICanBoogie/Prototype
-[parse_value()]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.CriterionTrait#_parse_value.html
+[Model]:                       http://api.icanboogie.org/activerecord/2.3/docs/class-ICanBoogie.ActiveRecord.Model.html
+[CriterionList]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionList.html
+[CriterionValue]:              http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionValue.html
+[Fetcher]:                     http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.Fetcher.html
+[documentation]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[QueryString]:                 http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.QueryString.html
+[RecordCollection]:            http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.RecordCollection.html
+[RecordCollection\AlterEvent]: http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.RecordCollection.AlterEvent.html
+[SetCriterionValue]:           http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.SetCriterionValue.html
+[alter_query_with_value()]:    http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionTrait.html#_alter_query_with_value
+[parse_value()]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionTrait.html#_parse_value
+[icanboogie/activerecord]:     https://github.com/ICanBoogie/ActiveRecord
+[icanboogie/bind-facets]:      https://github.com/ICanBoogie/bind-facets
+[icanboogie/prototype]:        https://github.com/ICanBoogie/Prototype
+[ICanBoogie]:                  http://icanboogie.org/
 
 [faceted search]: http://en.wikipedia.org/wiki/Faceted_search

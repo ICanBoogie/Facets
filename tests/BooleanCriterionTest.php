@@ -35,12 +35,8 @@ class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
 				Model::NAME => 'example',
 				Model::SCHEMA => [
 
-					'fields' => [
-
-						'id' => 'serial',
-						'is_online' => 'boolean'
-
-					]
+					'id' => 'serial',
+					'is_online' => 'boolean'
 
 				]
 			]

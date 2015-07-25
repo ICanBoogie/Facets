@@ -1,7 +1,7 @@
 # customization
 
-PACKAGE_NAME = "ICanBoogie/Facets"
-PACKAGE_VERSION = 0.2.0
+PACKAGE_NAME = ICanBoogie/Facets
+PACKAGE_VERSION = 0.4.0
 
 # do not edit the following lines
 
@@ -28,15 +28,11 @@ doc: vendor
 	@mkdir -p build/docs
 	@apigen generate \
 	--source lib \
-	--exclude "*/composer/*" \
-	--exclude "*/autoload.php" \
 	--destination build/docs/ \
-	--title "$(PACKAGE_NAME) $(PACKAGE_VERSION)" \
-	--template-theme "bootstrap" \
-	--debug
+	--title "$(PACKAGE_NAME) v$(PACKAGE_VERSION)" \
+	--template-theme "bootstrap"
 
 clean:
 	@rm -fR build
 	@rm -fR vendor
 	@rm -f composer.lock
-
