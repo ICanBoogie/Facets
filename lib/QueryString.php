@@ -18,6 +18,7 @@ use ICanBoogie\Accessor\AccessorTrait;
  *
  * @property-read QueryStringWord[] $matched Query string words for which a match was found.
  * @property-read QueryStringWord[] $not_matched Query string words for which no match was found.
+ * @property-read QueryStringWord[] $matches Unique matches.
  */
 class QueryString implements \IteratorAggregate
 {
@@ -162,7 +163,7 @@ class QueryString implements \IteratorAggregate
 	}
 
 	/**
-	 * Returns the query string words that have no match.
+	 * Returns the query string words that do not have a match.
 	 *
 	 * @return QueryStringWord[]
 	 */

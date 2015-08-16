@@ -13,6 +13,8 @@ namespace ICanBoogie\Facets;
 
 /**
  * Use this trait to parse the query string against an array of normalized matchables.
+ *
+ * @property string $id
  */
 trait ParseQueryStringTrait
 {

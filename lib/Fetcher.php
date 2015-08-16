@@ -226,7 +226,7 @@ class Fetcher implements FetcherInterface
 	/**
 	 * Initializes the {@link $model}, {@link $options} and {@link $criterion_list} properties.
 	 *
-	 * @param Model $model
+	 * @param Model|ModelBindings $model
 	 * @param array $options
 	 */
 	public function __construct(Model $model, array $options = [])
