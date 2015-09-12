@@ -7,7 +7,10 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/facets.svg)](https://packagist.org/packages/icanboogie/facets)
 
-Together with the [icanboogie/activerecord] package, this library makes it easy to implement [faceted search][]. The library makes it especially easy to parse query strings (bag of words), use serialized criterion values such as sets (e.g. "1|2|3") or intervals (.e.g. "1990..2010"), and fetch records matching an array of conditions.
+Together with the [icanboogie/activerecord] package, this library makes it easy to implement
+[faceted search][]. The library makes it especially easy to parse query strings (bag of words),
+use serialized criterion values such as sets (e.g. "1|2|3") or intervals (.e.g. "1990..2010"),
+and fetch records matching an array of conditions.
 
 
 
@@ -15,7 +18,9 @@ Together with the [icanboogie/activerecord] package, this library makes it easy 
 
 ## Fetching records matching conditions
 
-A [Fetcher][] instance can be used to fetch records matching a set of conditions. The _fetcher_ takes care of the various steps required to build the query and fetch the matching records. These steps can be summarized as follows:
+A [Fetcher][] instance can be used to fetch records matching a set of conditions.
+The _fetcher_ takes care of the various steps required to build the query and fetch the
+matching records. These steps can be summarized as follows:
 
 1. Parse the specified modifiers and extract conditions, offset, limit, order and query string.
 2. Build the initial query.
@@ -28,7 +33,9 @@ A [Fetcher][] instance can be used to fetch records matching a set of conditions
 9. Invoke criteria to alter the records.
 10. Return a [RecordCollection][] instance containing the records.
 
-The following example demonstrates how a [Fetcher][] instance can be used to fetch online articles that are classified in the "music" category, and were published between 2010 and 2014. A maximum of 10 articles can be fetched, and they are ordered starting with the most recent:
+The following example demonstrates how a [Fetcher][] instance can be used to fetch online articles
+that are classified in the "music" category, and were published between 2010 and 2014. A maximum of
+10 articles can be fetched, and they are ordered starting with the most recent:
 
 ```php
 <?php
@@ -56,7 +63,9 @@ $records = $fetcher([
 
 ### Fetch records using a model
 
-The package adds the `fetch_records()` and `fetch_record()` methods to [Model][] instances, which allow for records to be fetched directly from the model, without requiring a [Fetcher][] instance to be built.
+The package adds the `fetch_records()` and `fetch_record()` methods to [Model][] instances,
+which allow for records to be fetched directly from the model, without requiring a
+[Fetcher][] instance to be built.
 
 ```php
 $records = $model->fetch_records([
@@ -70,7 +79,8 @@ $records = $model->fetch_records([
 ]);
 ```
 
-Note that the [Fetcher][] instance created to fetch the records can be obtained using the second argument of the methods.
+Note that the [Fetcher][] instance created to fetch the records can be obtained using the
+second argument of the methods.
 
 ```php
 $records = $model->fetch_records($conditions, $fetcher);
@@ -96,7 +106,10 @@ Once the records have been returned the following properties might be of interes
 
 ### Altering the fetched records
 
-Fetched records are returned as a [RecordCollection][] instance, such an instance can be used to fire the `alter` event of class [RecordCollection\AlterEvent][]. Event hooks may use this event to alter the records of the collection, for instance fetching the images associated with a collection of articles using a single query.
+Fetched records are returned as a [RecordCollection][] instance, such an instance can be used to
+fire the `alter` event of class [RecordCollection\AlterEvent][]. Event hooks may use this event to
+alter the records of the collection, for instance fetching the images associated with a
+collection of articles using a single query.
 
 ```php
 <?php
@@ -114,7 +127,8 @@ new RecordCollection\AlterEvent($records);
 
 ## Fetching records using a `CriterionList` instance
 
-If using a [Fetcher][] instance is not enough of a challenge for you, you can use a [CriterionList][] instead and do all the hard work yourself:
+If using a [Fetcher][] instance is not enough of a challenge for you, you can use
+a [CriterionList][] instead and do all the hard work yourself:
 
 ```php
 <?php
@@ -179,10 +193,14 @@ $records = $query->limit(20)->all; // fetch a maximum of 20 records
 
 ## Criterion values
 
-Criterion values are usually created when a [CriterionList][] instance alters a query with values. If a value's key matches a criterion identifier, the [parse_value()][] of that criterion is invoked to retrieve a _criterion value_, which might be the exact same value, or a [CriterionValue][] instance if the value is complex, for instance an _interval_
-or a _set_.
+Criterion values are usually created when a [CriterionList][] instance alters a query with values.
+If a value's key matches a criterion identifier, the [parse_value()][] of that criterion is invoked
+to retrieve a _criterion value_, which might be the exact same value,
+or a [CriterionValue][] instance if the value is complex, for instance an _interval_ or a _set_.
 
-The resulting _criterion value_ is used to alter the query during [alter_query_with_value()]. _Interval values_ result in `BETWEEN ? AND ?`, `=> ?`, and `<= ?` conditions; while _set values_ result in `IN(?)` conditions.
+The resulting _criterion value_ is used to alter the query during [alter_query_with_value()].
+_Interval values_ result in `BETWEEN ? AND ?`, `=> ?`, and `<= ?` conditions; while _set values_
+result in `IN(?)` conditions.
 
 
 
@@ -190,7 +208,9 @@ The resulting _criterion value_ is used to alter the query during [alter_query_w
 
 ### Interval values
 
-Interval values are represented by [IntervalCriterionValue][] instances. When specified as a string two dots `..` are used to separate the lower and the upper bound. An interval value can be created with any of the following statements:
+Interval values are represented by [IntervalCriterionValue][] instances. When specified as a string
+two dots `..` are used to separate the lower and the upper bound. An interval value can
+be created with any of the following statements:
 
 ```php
 <?php
@@ -224,7 +244,8 @@ echo new IntervalCriterionValue(123, 123);    // "123"
 echo new IntervalCriterionValue(null, null);  // ""
 ```
 
-[IntervalCriterionValue][] instances can be used by criteria to create `BETWEEN ? AND ?`, `>= ?`, and `<= ?` conditions while they alter the query.
+[IntervalCriterionValue][] instances can be used by criteria to create `BETWEEN ? AND ?`, `>= ?`,
+and `<= ?` conditions while they alter the query.
 
 
 
@@ -232,7 +253,9 @@ echo new IntervalCriterionValue(null, null);  // ""
 
 ### Set values
 
-Set values are represented by [SetCriterionValue][] instances. When specified as a string the _pipe_ character "|" is used to separate the values. A set value can be created with any of the following statements:
+Set values are represented by [SetCriterionValue][] instances. When specified as a string the
+_pipe_ character "|" is used to separate the values. A set value can be created with any of the
+following statements:
 
 ```php
 <?php
@@ -256,7 +279,8 @@ echo new SetCriterionValue([ 1 ]);       // "1"
 echo new SetCriterionValue([ ]);         // ""
 ```
 
-[SetCriterionValue][] instances can be used by criteria to create `IN(?)` conditions while they alter the query.
+[SetCriterionValue][] instances can be used by criteria to create `IN(?)` conditions while they
+alter the query.
 
 
 
@@ -264,12 +288,19 @@ echo new SetCriterionValue([ ]);         // ""
 
 ## Associating criteria with models
 
-Criteria are associated with models using `activerecord` config fragments and the `facets` key. The criteria for a model are specified using the model's identifier. The `activerecord.facets` config is synthesized from fragments. The `criteria` and `criterion_list`
-getters are added to the [Model][] class by the package and are used to respectively retrieve the config criteria and the [CriterionList][] instance associated with a model.
+Criteria are associated with models using `activerecord` config fragments and the `facets` key.
+The criteria for a model are specified using the model's identifier.
+The `activerecord_facets` config is synthesized from fragments. The `criteria` and `criterion_list`
+getters are added to the [Model][] class by the package and are used to respectively retrieve the
+config criteria and the [CriterionList][] instance associated with a model.
 
-**Note:** This feature currently requires the [ICanBoogie][] framework and the [icanboogie/bind-facets][] package. A similar feature can be implemented using only the [icanboogie/prototype][] package. In which case, you only need to define the `criteria` and `criterion_list` getters for the [Model][] class.
+**Note:** This feature currently requires the [ICanBoogie][] framework and the
+[icanboogie/bind-facets][] package. A similar feature can be implemented using only the
+[icanboogie/prototype][] package. In which case, you only need to define the `criteria` and
+`criterion_list` getters for the [Model][] class.
 
-The following example demonstrates how the `nid` and `slug` criteria are associated with the `nodes` model, and how the `month` and `year` criteria are associated with the `articles` model:
+The following example demonstrates how the `nid` and `slug` criteria are associated with the
+`nodes` model, and how the `month` and `year` criteria are associated with the `articles` model:
 
 ```php
 <?php
@@ -299,7 +330,8 @@ return [
 ];
 ```
 
-Note that criteria are inherited. In our example, because `articles` extends `nodes` it inherits its `nid` and `slug` criteria.
+Note that criteria are inherited. In our example, because `articles` extends `nodes` it inherits
+its `nid` and `slug` criteria.
 
 
 
@@ -307,7 +339,9 @@ Note that criteria are inherited. In our example, because `articles` extends `no
 
 ### Obtaining the criteria associated with a model
 
-The criteria array can be retrieved from a model using the `criteria` getter that is added by the package. The getter returns the criteria and inherited criteria as they are defined in the `activerecord.facets` config.
+The criteria array can be retrieved from a model using the `criteria` getter that is added by the
+package. The getter returns the criteria and inherited criteria as they are defined in the
+`activerecord_facets` config.
 
 ```php
 <?php
@@ -328,7 +362,9 @@ The `criteria` and `criterion_list` getters are added to the [Model][] class
 
 ### Obtaining the CriterionList instance associated with a model
 
-The [CriterionList] instance associated with a model can be retrieved from a model using the `criterion_list` getter that is added by the package. The getter returns a [CriterionList] instance created from the criteria obtained through the `criteria` getter.
+The [CriterionList] instance associated with a model can be retrieved from a model using the
+`criterion_list` getter that is added by the package. The getter returns a [CriterionList]
+instance created from the criteria obtained through the `criteria` getter.
 
 ```php
 <?php
@@ -372,7 +408,8 @@ The following packages are required, you might want to check them out:
 
 ### Cloning the repository
 
-The package is [available on GitHub](https://github.com/ICanBoogie/Facets), its repository can be cloned with the following command line:
+The package is [available on GitHub](https://github.com/ICanBoogie/Facets), its repository can be
+cloned with the following command line:
 
 	$ git clone https://github.com/ICanBoogie/Facets.git
 
