@@ -325,26 +325,19 @@ class Fetcher implements FetcherInterface
 
 		];
 
-		$order = $modifiers['order'];
-		$limit = $modifiers['limit'];
-		$offset = $limit ? $modifiers['page'] * $limit : null;
 		$query_string = $this->parse_query_string($modifiers['q']);
-		$matches = $query_string->matches;
-
-		if ($matches)
-		{
-			$modifiers += array_map(function($v) { return implode('|', $v); }, $matches);
-		}
 
 		$conditions = [];
+		$this->alter_conditions($conditions, $modifiers + $query_string->conditions);
 
-		$this->alter_conditions($conditions, $modifiers);
+		$limit = $modifiers['limit'];
+		$page = $modifiers['page'];
 
 		return [ $conditions, [
 
-			'order' => $order,
+			'order' => $modifiers['order'],
 			'limit' => $limit,
-			'offset' => $offset,
+			'offset' => $limit && $page ? $page * $limit : null,
 			'query_string' => $query_string
 
 		] ];
