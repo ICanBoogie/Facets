@@ -16,32 +16,30 @@ use ICanBoogie\ActiveRecord\Query;
 /**
  * A boolean criterion.
  */
-class DateTimeCriterion extends Criterion
+class DateCriterion extends DateTimeCriterion
 {
 	public function alter_query_with_value(Query $query, $value)
 	{
-		if ($value)
+		if (!$value)
 		{
-			$field = $this->id;
+			return $query;
+		}
 
-			list($year, $month, $day) = explode('-', $value) + [ 0, 0, 0 ];
+		$field = $this->id;
 
-			if ($year)
-			{
-				$query->and("YEAR(`$field`) = ?", (int) $year);
-			}
+		list($year, $month, $day) = explode('-', $value) + [ 0, 0, 0 ];
 
-			if ($month)
-			{
-				$query->and("MONTH(`$field`) = ?", (int) $month);
-			}
-
-			if ($day)
-			{
-				$query->and("DAY(`$field`) = ?", (int) $day);
-			}
-
-			echo $query;
+		if ($day)
+		{
+			$query->and("DATE(`$field`) = ?", "$year-$month-$day");
+		}
+		else if ($month)
+		{
+			$query->and("YEAR(`$field`) = ? AND MONTH(`$field`) = ?", (int) $year, (int) $month);
+		}
+		else if ($year)
+		{
+			$query->and("YEAR(`$field`) = ?", (int) $year);
 		}
 
 		return $query;
