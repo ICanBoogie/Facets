@@ -18,7 +18,9 @@ use ICanBoogie\Accessor\AccessorTrait;
  *
  * @property-read QueryStringWord[] $matched Query string words for which a match was found.
  * @property-read QueryStringWord[] $not_matched Query string words for which no match was found.
- * @property-read QueryStringWord[] $matches Unique matches.
+ * @property-read array $matches Unique matches.
+ * @property-read array $conditions An array of conditions suitable for {@link Criterion::alter_query_with_conditions}.
+ * @property-read string $remains What remains of the query string after removing matched words.
  */
 class QueryString implements \IteratorAggregate
 {
@@ -185,15 +187,15 @@ class QueryString implements \IteratorAggregate
 	}
 
 	/**
-	 * Returns the query string words that have a match.
+	 * Returns criterion values per criterion identifier.
 	 *
-	 * @return QueryStringWord[]
+	 * @return array
 	 */
 	protected function get_matches()
 	{
 		$matches = [];
 
-		foreach ($this->words as $word)
+		foreach ($this->matched as $word)
 		{
 			foreach ($word->match as $criterion_id => $match)
 			{
@@ -201,8 +203,33 @@ class QueryString implements \IteratorAggregate
 			}
 		}
 
-		$matches = array_map('array_unique', $matches);
+		return array_map('array_unique', $matches);
+	}
 
-		return $matches;
+	/**
+	 * Returns an array of facet conditions.
+	 *
+	 * @return array
+	 */
+	protected function get_conditions()
+	{
+		return array_map(function($v) {
+
+			if (count($v) === 1)
+			{
+				return reset($v);
+			}
+
+			return new SetCriterionValue($v);
+
+		}, $this->matches);
+	}
+
+	/**
+	 * Returns what remains of the query string after removing matched words.
+	 */
+	protected function get_remains()
+	{
+		return implode(' ', $this->not_matched);
 	}
 }
