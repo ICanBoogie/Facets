@@ -18,7 +18,7 @@ and fetch records matching an array of conditions.
 
 ## Fetching records matching conditions
 
-A [Fetcher][] instance can be used to fetch records matching a set of conditions.
+A [BasicFetcher][] instance can be used to fetch records matching a set of conditions.
 The _fetcher_ takes care of the various steps required to build the query and fetch the
 matching records. These steps can be summarized as follows:
 
@@ -33,7 +33,7 @@ matching records. These steps can be summarized as follows:
 9. Invoke criteria to alter the records.
 10. Return a [RecordCollection][] instance containing the records.
 
-The following example demonstrates how a [Fetcher][] instance can be used to fetch online articles
+The following example demonstrates how a [BasicFetcher][] instance can be used to fetch online articles
 that are classified in the "music" category, and were published between 2010 and 2014. A maximum of
 10 articles can be fetched, and they are ordered starting with the most recent:
 
@@ -41,11 +41,11 @@ that are classified in the "music" category, and were published between 2010 and
 <?php
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\Facets\Fetcher;
+use ICanBoogie\Facets\BasicFetcher;
 
 $model = ActiveRecord\get_model('articles');
 
-$fetcher = new Fetcher($model);
+$fetcher = new BasicFetcher($model);
 $records = $fetcher([
 
 	'year' => "2010..2014",
@@ -65,7 +65,7 @@ $records = $fetcher([
 
 The package adds the `fetch_records()` and `fetch_record()` methods to [Model][] instances,
 which allow for records to be fetched directly from the model, without requiring a
-[Fetcher][] instance to be built.
+[BasicFetcher][] instance to be built.
 
 ```php
 $records = $model->fetch_records([
@@ -79,7 +79,7 @@ $records = $model->fetch_records([
 ]);
 ```
 
-Note that the [Fetcher][] instance created to fetch the records can be obtained using the
+Note that the [BasicFetcher][] instance created to fetch the records can be obtained using the
 second argument of the methods.
 
 ```php
@@ -127,7 +127,7 @@ new RecordCollection\AlterEvent($records);
 
 ## Fetching records using a `CriterionList` instance
 
-If using a [Fetcher][] instance is not enough of a challenge for you, you can use
+If using a [BasicFetcher][] instance is not enough of a challenge for you, you can use
 a [CriterionList][] instead and do all the hard work yourself:
 
 ```php
@@ -457,7 +457,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Model]:                       http://api.icanboogie.org/activerecord/2.3/docs/class-ICanBoogie.ActiveRecord.Model.html
 [CriterionList]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionList.html
 [CriterionValue]:              http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionValue.html
-[Fetcher]:                     http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.Fetcher.html
+[BasicFetcher]:                     http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.BasicFetcher.html
 [documentation]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
 [IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
 [QueryString]:                 http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.QueryString.html

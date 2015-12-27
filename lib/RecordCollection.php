@@ -15,9 +15,9 @@ use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\ActiveRecord;
 
 /**
- * A collection of records fetched by a {@link Fetcher} instance.
+ * A collection of records fetched by a {@link BasicFetcher} instance.
  *
- * @property-read Fetcher $fetcher
+ * @property-read BasicFetcher $fetcher
  * @property-read array $conditions The conditions used to fetch the records.
  * @property-read int $limit The maximum number of records.
  * @property-read int $page The current page.
@@ -32,7 +32,7 @@ class RecordCollection implements \IteratorAggregate, \Countable
 	use AccessorTrait;
 
 	/**
-	 * Properties forwarded to the {@link Fetcher} instance.
+	 * Properties forwarded to the {@link BasicFetcher} instance.
 	 *
 	 * @var array
 	 */
@@ -44,7 +44,7 @@ class RecordCollection implements \IteratorAggregate, \Countable
 	private $records;
 
 	/**
-	 * @var Fetcher
+	 * @var BasicFetcher
 	 */
 	private $fetcher;
 
@@ -73,7 +73,7 @@ class RecordCollection implements \IteratorAggregate, \Countable
 		return $this->fetcher->count;
 	}
 
-	public function __construct(array $records, Fetcher $fetcher)
+	public function __construct(array $records, BasicFetcher $fetcher)
 	{
 		$this->records = $records;
 		$this->fetcher = $fetcher;

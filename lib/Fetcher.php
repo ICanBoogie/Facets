@@ -11,335 +11,119 @@
 
 namespace ICanBoogie\Facets;
 
-use ICanBoogie\Accessor\AccessorTrait;
-use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Query;
 
 /**
- * Fetch records from a model.
- *
- * @property-read Model $model The model from which record are fetched.
- * @property-read CriterionList $criterion_list List of criterion.
- * @property-read array $modifiers An array of key/value used to filter/order/qualify the records.
- * @property-read Query $initial_query The initial query, before it is altered by the criteria,
- * conditions, order or limit.
- * @property-read Query $query The query used to fetch the records.
- * @property-read QueryString $query_string A {@link QueryString} instance resolved from the `q`
- * modifier.
- * @property-read array $conditions An array of conditions used to filter the fetched records.
- * @property-read string $order The order in which records are fetched, as defined by the `order`
- * modifier.
- * @property-read int $count The number of records matching the query before the offset and limit
- * is applied.
- * @property-read int $limit The maximum number of records that can be fetched, as defined by the
- * `limit` modifier.
+ * Interface for an active record fetcher that supports external conditions.
  */
-class Fetcher implements FetcherInterface
+interface Fetcher
 {
-	use AccessorTrait;
-	use FetcherTrait;
-
 	/**
-	 * The model from witch records are fetched.
+	 * Alter the {@link CriterionList} instance usually provided during construct.
 	 *
-	 * @var Model
+	 * @param CriterionList $criterion_list
 	 */
-	protected $model;
+	public function alter_criterion_list(CriterionList $criterion_list);
 
 	/**
-	 * Return the {@link $model} property.
+	 * Alter the conditions with the specified modifiers.
 	 *
-	 * @return Model
-	 */
-	protected function get_model()
-	{
-		return $this->model;
-	}
-
-	/**
-	 * Fetch modifiers.
+	 * A {@link CriterionList} instance is usually used to alter the conditions.
 	 *
-	 * @var array
-	 */
-	protected $modifiers;
-
-	/**
-	 * Return the {@link $modifiers} property.
+	 * @param array $conditions The conditions to alter, usually initialized
+	 * @param array $modifiers
 	 *
-	 * @return array
+	 * @return array The altered conditions.
 	 */
-	protected function get_modifiers()
-	{
-		return $this->modifiers;
-	}
+	public function alter_conditions(array &$conditions, array $modifiers);
 
 	/**
-	 * Options.
+	 * Parse the query string.
 	 *
-	 * @var array
-	 */
-	protected $options = [];
-
-	/**
-	 * Initial query.
+	 * The query string is usually specified by the `q` condition.
 	 *
-	 * @var Query
-	 */
-	private $initial_query;
-
-	/**
-	 * Return the {@link $initial_query} property.
+	 * The conditions extracted from the query string are merged in the conditions.
 	 *
-	 * @return Query
-	 */
-	protected function get_initial_query()
-	{
-		if (empty($this->initial_query))
-		{
-			$this->initial_query = $this->create_initial_query();
-		}
-
-		return $this->initial_query;
-	}
-
-	/**
-	 * The query used to fetch the records.
+	 * A {@link CriterionList} instance is usually used to parse the query string.
 	 *
-	 * @var Query
+	 * @param QueryString $q
 	 */
-	private $query;
+	public function parse_query_string($q);
 
 	/**
-	 * Return the query used to fetch the records.
+	 * Alter the initial query.
 	 *
-	 * @return Query
-	 */
-	protected function get_query()
-	{
-		return $this->query;
-	}
-
-	/**
-	 * Query string resolved from the modifiers.
+	 * A {@link CriterionList} instance is usually used to alter the initial query.
 	 *
-	 * @var QueryString
-	 */
-	protected $query_string;
-
-	/**
-	 * Return the {@link $query_string} property.
+	 * @param Query $query
 	 *
-	 * @return QueryString
+	 * @return Query The altered initial query.
 	 */
-	protected function get_query_string()
-	{
-		return $this->query_string;
-	}
+	public function alter_query(Query $query);
 
 	/**
-	 * Conditions resolved from the modifiers.
+	 * Alter the query with conditions.
 	 *
-	 * @var array
-	 */
-	protected $conditions = [];
-
-	/**
-	 * Return the {@link $conditions} property.
+	 * A {@link CriterionList} instance is usually used to alter the query with conditions.
 	 *
-	 * @return array
-	 */
-	protected function get_conditions()
-	{
-		return $this->conditions;
-	}
-
-	/**
-	 * Order of the records, as found in the modifiers.
+	 * @param Query $query
+	 * @param array $conditions
 	 *
-	 * @var string|null
+	 * @return Query The altered query.
 	 */
-	protected $order;
+	public function alter_query_with_conditions(Query $query, array $conditions);
 
 	/**
-	 * Return the {@link $order} property.
+	 * Alter the query with an order.
 	 *
-	 * @return string|null
-	 */
-	protected function get_order()
-	{
-		return $this->order;
-	}
-
-	/**
-	 * Limit of the number of records to fetch, as found in the modifiers.
+	 * A {@link CriterionList} instance is usually used to alter the query with an order.
 	 *
-	 * @var string|null
-	 */
-	protected $limit;
-
-	/**
-	 * Return the {@link $limit} property.
+	 * @param Query $query
+	 * @param string $criterion_id
+	 * @param int $order_direction
 	 *
-	 * @return int|null
+	 * @return Query The altered query.
 	 */
-	protected function get_limit()
-	{
-		return $this->limit;
-	}
-
-	protected $offset;
-
-	protected function get_offset()
-	{
-		return $this->offset;
-	}
-
-	protected function get_page()
-	{
-		$limit = $this->limit;
-
-		if (!$limit)
-		{
-			return 0;
-		}
-
-		return (int) ($this->offset / $this->limit);
-	}
+	public function alter_query_with_order(Query $query, $criterion_id, $order_direction = 1);
 
 	/**
-	 * Number of records matching the query, before they are limited.
+	 * Counts the number of records that are matching the query.
 	 *
-	 * @var int
-	 */
-	protected $count;
-
-	/**
-	 * Return the {@link $count} property.
+	 * The method is invoked before the query is altered with a limit, thus the number returned
+	 * is the total number of records matching the query.
+	 *
+	 * @param Query $query
 	 *
 	 * @return int
 	 */
-	protected function get_count()
-	{
-		return $this->count;
-	}
+	public function count_records(Query $query);
 
 	/**
-	 * Initializes the {@link $model}, {@link $options} and {@link $criterion_list} properties.
+	 * Alter the query with an offset and limit.
 	 *
-	 * @param Model|ModelBindings $model
-	 * @param array $options
+	 * @param Query $query
+	 * @param int $offset
+	 * @param int $limit
+	 *
+	 * @return Query The altered query.
 	 */
-	public function __construct(Model $model, array $options = [])
-	{
-		$this->model = $model;
-		$this->options = $options;
-		$this->criterion_list = $this->alter_criterion_list($model->criterion_list);
-	}
+	public function alter_query_with_limit(Query $query, $offset, $limit);
 
 	/**
-	 * Clones the {@link initial_query}, {@link query}, and {@link query_string} properties.
-	 */
-	public function __clone()
-	{
-		$this->initial_query = clone $this->initial_query;
-		$this->query = clone $this->query;
-		$this->query_string = clone $this->query_string;
-	}
-
-	/**
-	 * Fetch records according to the specified modifiers.
+	 * Fetch the records matching the query.
 	 *
-	 * The method updates the following properties:
-	 *
-	 * - {@link $conditions}
-	 * - {@link $count}
-	 * - {@link $initial_query}
-	 * - {@link $limit}
-	 * - {@link $modifiers}
-	 * - {@link $offset}
-	 * - {@link $order}
-	 * - {@link $query_string}
-	 *
-	 * @param array $modifiers
-	 *
-	 * @return array The records matching the query.
-	 */
-	public function __invoke(array $modifiers)
-	{
-		$this->modifiers = $modifiers;
-
-		list($conditions, $properties) = $this->parse_modifiers($modifiers);
-
-		$this->conditions = $conditions;
-
-		foreach ($properties as $property => $value)
-		{
-			$this->$property = $value;
-		}
-
-		#
-
-		$query = clone $this->get_initial_query();
-
-		$query = $this->alter_query($query);
-		$query = $this->alter_query_with_conditions($query, $conditions);
-		$this->count = $this->count_records($query);
-
-		$query = $this->alter_query_with_order($query, $this->order);
-		$query = $this->alter_query_with_limit($query, $this->offset, $this->limit);
-
-		$this->query = $query;
-
-		$records = $this->fetch_records($query);
-
-		$this->alter_records($records);
-
-		return new RecordCollection($records, clone $this);
-	}
-
-	/**
-	 * Create the initial query.
-	 *
-	 * @return Query
-	 */
-	protected function create_initial_query()
-	{
-		return new Query($this->model);
-	}
-
-	/**
-	 * Parse modifiers to extract conditions, and qualifiers.
-	 *
-	 * @param array $modifiers
+	 * @param Query $query
 	 *
 	 * @return array
 	 */
-	protected function parse_modifiers(array $modifiers)
-	{
-		$modifiers += [
+	public function fetch_records(Query $query);
 
-			'order' => null,
-			'limit' => null,
-			'page' => null,
-			'q' => null
-
-		];
-
-		$query_string = $this->parse_query_string($modifiers['q']);
-
-		$conditions = [];
-		$this->alter_conditions($conditions, $modifiers + $query_string->conditions);
-
-		$limit = $modifiers['limit'];
-		$page = $modifiers['page'];
-
-		return [ $conditions, [
-
-			'order' => $modifiers['order'],
-			'limit' => $limit,
-			'offset' => $limit && $page ? $page * $limit : null,
-			'query_string' => $query_string
-
-		] ];
-	}
+	/**
+	 * Alter the fetched records.
+	 *
+	 * A {@link CriterionList} instance is usually used to alter the records.
+	 *
+	 * @param array $records
+	 */
+	public function alter_records(array &$records);
 }

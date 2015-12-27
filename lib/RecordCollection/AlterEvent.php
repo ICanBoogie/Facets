@@ -17,7 +17,7 @@ use ICanBoogie\Facets\RecordCollection;
 /**
  * Event class for the `ICanBoogie\Facets\RecordCollection::alter` event.
  *
- * Event hooks may use this event to alter records fetched by a {@link Fetcher} instance.
+ * Event hooks may use this event to alter records fetched by a {@link BasicFetcher} instance.
  *
  * @property RecordCollection $instance
  */

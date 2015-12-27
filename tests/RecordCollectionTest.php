@@ -59,7 +59,7 @@ class RecordCollectionTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 
 		$fetcher = $this
-			->getMockBuilder(Fetcher::class)
+			->getMockBuilder(BasicFetcher::class)
 			->setConstructorArgs([ $model ])
 			->setMethods([ 'get_conditions', 'get_count', 'get_initial_request', 'get_limit', 'get_page', 'get_query', 'create_initial_query' ])
 			->getMock();
@@ -76,7 +76,7 @@ class RecordCollectionTest extends \PHPUnit_Framework_TestCase
 
 		];
 
-		/* @var $fetcher Fetcher */
+		/* @var $fetcher BasicFetcher */
 
 		$this->fetcher = $fetcher;
 		$this->initial_query = $initial_query;
@@ -145,7 +145,7 @@ class RecordCollectionTest extends \PHPUnit_Framework_TestCase
 	public function test_get_initial_query()
 	{
 		$expected = $this->initial_query;
-		/* @var $fetcher Fetcher */
+		/* @var $fetcher BasicFetcher */
 		$fetcher = $this->fetcher;
 
 		$this->assertSame($expected, $fetcher->initial_query);
