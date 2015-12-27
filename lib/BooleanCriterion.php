@@ -14,7 +14,7 @@ namespace ICanBoogie\Facets;
 /**
  * A boolean criterion.
  */
-class BooleanCriterion extends Criterion
+class BooleanCriterion extends BasicCriterion
 {
 	/**
 	 * @inheritdoc

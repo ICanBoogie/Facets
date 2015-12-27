@@ -134,18 +134,19 @@ a [CriterionList][] instead and do all the hard work yourself:
 <?php
 
 use ICanBoogie\Facets\CriterionList;
+use App\Modules\Vehicles;
 
 $criterion_list = new CriterionList([
 
-	'family'   => 'App\Modules\Vehicles\Families\FamilyCriterion',
-	'brand'    => 'App\Modules\Vehicles\Brands\BrandCriterion',
-	'category' => 'App\Modules\Vehicles\Categories\CategoryCriterion',
-	'color'    => 'App\Modules\Vehicles\Colors\ColorCriterion',
-	'energy'   => 'App\Modules\Vehicles\Energies\EnergyCriterion',
-	'engine'   => 'App\Modules\Vehicles\Engines\EngineCriterion',
-	'doors'    => 'App\Modules\Vehicles\DoorsCriterion',
-	'year'     => 'App\Modules\Vehicles\YearCriterion',
-	'price'    => 'App\Modules\Vehicles\PriceCriterion'
+	'family'   => Vehicles\Families\FamilyCriterion::class,
+	'brand'    => Vehicles\Brands\BrandCriterion::class,
+	'category' => Vehicles\Categories\CategoryCriterion::class,
+	'color'    => Vehicles\Colors\ColorCriterion::class,
+	'energy'   => Vehicles\Energies\EnergyCriterion::class,
+	'engine'   => Vehicles\Engines\EngineCriterion::class,
+	'doors'    => Vehicles\DoorsCriterion::class,
+	'year'     => Vehicles\YearCriterion::class,
+	'price'    => Vehicles\PriceCriterion::class
 
 ]);
 
@@ -313,15 +314,15 @@ return [
 
 		'nodes' => [
 
-			'nid' => 'Icybee\Modules\Nodes\NidCriterion',
-			'slug' => 'Icybee\Modules\Nodes\SlugCriterion'
+			'nid' => Icybee\Modules\Nodes\NidCriterion::class,
+			'slug' => Icybee\Modules\Nodes\SlugCriterion::class
 
 		],
 
 		'articles' => [
 
-			'month' => 'Icybee\Modules\Articles\MonthCriterion',
-			'year' => 'Icybee\Modules\Articles\YearCriterion'
+			'month' => Icybee\Modules\Articles\MonthCriterion::class,
+			'year' => Icybee\Modules\Articles\YearCriterion::class
 
 		]
 
@@ -454,17 +455,17 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 [Model]:                       http://api.icanboogie.org/activerecord/2.3/docs/class-ICanBoogie.ActiveRecord.Model.html
-[CriterionList]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionList.html
-[CriterionValue]:              http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionValue.html
-[Fetcher]:                     http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.Fetcher.html
-[documentation]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.IntervalCriterionValue.html
-[IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.IntervalCriterionValue.html
-[QueryString]:                 http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.QueryString.html
-[RecordCollection]:            http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.RecordCollection.html
-[RecordCollection\AlterEvent]: http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.RecordCollection.AlterEvent.html
-[SetCriterionValue]:           http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.SetCriterionValue.html
-[alter_query_with_value()]:    http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionTrait.html#_alter_query_with_value
-[parse_value()]:               http://api.icanboogie.org/facets/0.4/class-ICanBoogie.Facets.CriterionTrait.html#_parse_value
+[CriterionList]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionList.html
+[CriterionValue]:              http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionValue.html
+[Fetcher]:                     http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.Fetcher.html
+[documentation]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[QueryString]:                 http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.QueryString.html
+[RecordCollection]:            http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.RecordCollection.html
+[RecordCollection\AlterEvent]: http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.RecordCollection.AlterEvent.html
+[SetCriterionValue]:           http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.SetCriterionValue.html
+[alter_query_with_value()]:    http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionTrait.html#_alter_query_with_value
+[parse_value()]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionTrait.html#_parse_value
 [icanboogie/activerecord]:     https://github.com/ICanBoogie/ActiveRecord
 [icanboogie/bind-facets]:      https://github.com/ICanBoogie/bind-facets
 [icanboogie/prototype]:        https://github.com/ICanBoogie/Prototype

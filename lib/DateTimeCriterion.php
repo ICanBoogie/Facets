@@ -16,7 +16,7 @@ use ICanBoogie\ActiveRecord\Query;
 /**
  * A boolean criterion.
  */
-class DateTimeCriterion extends Criterion
+class DateTimeCriterion extends BasicCriterion
 {
 	public function alter_query_with_value(Query $query, $value)
 	{
