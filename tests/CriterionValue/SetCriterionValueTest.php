@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\CriterionValue;
 
 class SetCriterionValueTest extends \PHPUnit_Framework_TestCase
 {

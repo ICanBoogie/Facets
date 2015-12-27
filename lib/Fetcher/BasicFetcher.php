@@ -9,11 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Fetcher;
 
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\Facets\CriterionList;
+use ICanBoogie\Facets\Fetcher;
+use ICanBoogie\Facets\FetcherTrait;
+use ICanBoogie\Facets\ModelBindings;
+use ICanBoogie\Facets\QueryString;
+use ICanBoogie\Facets\RecordCollection;
 
 /**
  * Fetch records from a model.

@@ -12,6 +12,7 @@
 namespace ICanBoogie\Facets;
 
 use ICanBoogie\Accessor\AccessorTrait;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
 /**
  * Representation of a query string.

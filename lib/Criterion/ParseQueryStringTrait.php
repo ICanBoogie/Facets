@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Criterion;
+
+use ICanBoogie\Facets\QueryString;
+use ICanBoogie\Facets\QueryStringWord;
 
 /**
  * Use this trait to parse the query string against an array of normalized matchables.

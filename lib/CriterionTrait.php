@@ -12,6 +12,8 @@
 namespace ICanBoogie\Facets;
 
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
 /**
  * Trait for a generic criterion.

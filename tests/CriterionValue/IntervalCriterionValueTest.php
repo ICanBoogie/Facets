@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\CriterionValue;
 
 class IntervalCriterionValueTest extends \PHPUnit_Framework_TestCase
 {
@@ -89,6 +89,7 @@ class IntervalCriterionValueTest extends \PHPUnit_Framework_TestCase
 			[ " " . IntervalCriterionValue::SEPARATOR ],
 			[ IntervalCriterionValue::SEPARATOR . " " ],
 			[ " " . IntervalCriterionValue::SEPARATOR . " " ],
+			[ "12" . IntervalCriterionValue::SEPARATOR . "34" . IntervalCriterionValue::SEPARATOR . "56" ],
 			[ 123 ],
 			[ [ 123, 456 ] ],
 			[ [ 'min' => 123, 456 ] ],

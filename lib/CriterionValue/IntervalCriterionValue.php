@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\CriterionValue;
 
 use ICanBoogie\ToArray;
 

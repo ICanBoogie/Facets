@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Facets;
 
+use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
+
 /**
  * Representation of a generic criterion value.
  *

@@ -23,6 +23,8 @@ use ICanBoogie\Facets\RecordCollection;
  */
 class AlterEvent extends Event
 {
+	const TYPE = 'alter';
+
 	/**
 	 * @var RecordCollection
 	 */
@@ -38,10 +40,13 @@ class AlterEvent extends Event
 		$this->instance = $instance;
 	}
 
+	/**
+	 * @param RecordCollection $target
+	 */
 	public function __construct(RecordCollection &$target)
 	{
 		$this->instance = &$target;
 
-		parent::__construct($target, 'alter');
+		parent::__construct($target, self::TYPE);
 	}
 }

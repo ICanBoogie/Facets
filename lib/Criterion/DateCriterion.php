@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Criterion;
 
 use ICanBoogie\ActiveRecord\Query;
 
 /**
  * A boolean criterion.
  */
-class DateCriterion extends DateTimeCriterion
+class DateCriterion extends BasicCriterion
 {
 	public function alter_query_with_value(Query $query, $value)
 	{

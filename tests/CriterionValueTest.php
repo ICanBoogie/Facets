@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Facets;
 
+use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
+
 class CriterionValueTest extends \PHPUnit_Framework_TestCase
 {
 	/**

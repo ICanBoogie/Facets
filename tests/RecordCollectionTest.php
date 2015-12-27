@@ -13,6 +13,7 @@ namespace ICanBoogie\Facets;
 
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\Facets\Fetcher\BasicFetcher;
 
 class RecordCollectionTest extends \PHPUnit_Framework_TestCase
 {

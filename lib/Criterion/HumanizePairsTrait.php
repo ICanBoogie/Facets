@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Criterion;
+
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
 /**
  * A trait that implements `humanize()` and can be provided with pairs of key/value where key is

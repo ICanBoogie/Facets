@@ -41,7 +41,7 @@ that are classified in the "music" category, and were published between 2010 and
 <?php
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\Facets\BasicFetcher;
+use ICanBoogie\Facets\Fetcher\BasicFetcher;
 
 $model = ActiveRecord\get_model('articles');
 

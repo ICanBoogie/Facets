@@ -9,9 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Criterion;
 
 use ICanBoogie\Accessor\AccessorTrait;
+use ICanBoogie\Facets\Criterion;
+use ICanBoogie\Facets\CriterionTrait;
 
 /**
  * Representation of a generic criterion.

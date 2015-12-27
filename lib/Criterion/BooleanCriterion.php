@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\Criterion;
+
+use ICanBoogie\Facets\QueryString;
 
 /**
  * A boolean criterion.

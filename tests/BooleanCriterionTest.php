@@ -15,6 +15,7 @@ use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\Facets\Criterion\BooleanCriterion;
 
 class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
 {

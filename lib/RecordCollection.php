@@ -13,6 +13,7 @@ namespace ICanBoogie\Facets;
 
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\ActiveRecord;
+use ICanBoogie\Facets\Fetcher\BasicFetcher;
 
 /**
  * A collection of records fetched by a {@link BasicFetcher} instance.

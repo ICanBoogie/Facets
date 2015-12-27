@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Facets;
+namespace ICanBoogie\Facets\CriterionValue;
 
 use ICanBoogie\ToArray;
 
@@ -49,7 +49,7 @@ class SetCriterionValue implements ToArray, \Countable
 		{
 			$value = trim($value);
 
-			if ($value === SetCriterionValue::SEPARATOR || strpos($value, SetCriterionValue::SEPARATOR) === false)
+			if ($value === self::SEPARATOR || strpos($value, self::SEPARATOR) === false)
 			{
 				return null;
 			}
