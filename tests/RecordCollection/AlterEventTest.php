@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Facets\RecordCollection;
 
+use ICanBoogie\EventCollection;
+use ICanBoogie\EventCollectionProvider;
 use ICanBoogie\Facets;
 use ICanBoogie\Facets\RecordCollection;
 
@@ -27,6 +29,12 @@ class AlterEventTest extends \PHPUnit_Framework_TestCase
 			->getMockBuilder(RecordCollection::class)
 			->disableOriginalConstructor()
 			->getMock();
+
+		EventCollectionProvider::using(function() {
+
+			return new EventCollection;
+
+		});
 	}
 
 	public function test_error_on_invalid_collection_type()
