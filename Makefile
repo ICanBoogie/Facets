@@ -1,6 +1,6 @@
 # customization
 
-PACKAGE_NAME = ICanBoogie/Facets
+PACKAGE_NAME = icanboogie/facets
 PACKAGE_VERSION = 0.4.0
 
 # do not edit the following lines

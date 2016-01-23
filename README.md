@@ -457,7 +457,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Model]:                       http://api.icanboogie.org/activerecord/2.3/docs/class-ICanBoogie.ActiveRecord.Model.html
 [CriterionList]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionList.html
 [CriterionValue]:              http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.CriterionValue.html
-[BasicFetcher]:                     http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.BasicFetcher.html
+[BasicFetcher]:                http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.BasicFetcher.html
 [documentation]:               http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
 [IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.IntervalCriterionValue.html
 [QueryString]:                 http://api.icanboogie.org/facets/0.5/class-ICanBoogie.Facets.QueryString.html
