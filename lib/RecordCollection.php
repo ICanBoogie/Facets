@@ -14,6 +14,7 @@ namespace ICanBoogie\Facets;
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Facets\Fetcher\BasicFetcher;
+use ICanBoogie\ToArray;
 
 /**
  * A collection of records fetched by a {@link BasicFetcher} instance.
@@ -28,7 +29,7 @@ use ICanBoogie\Facets\Fetcher\BasicFetcher;
  * @property-read ActiveRecord\Query $query
  * @property-read ActiveRecord $one The first record in the collection.
  */
-class RecordCollection implements \IteratorAggregate, \Countable
+class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 {
 	use AccessorTrait;
 
@@ -104,5 +105,15 @@ class RecordCollection implements \IteratorAggregate, \Countable
 	public function count()
 	{
 		return count($this->records);
+	}
+
+	/**
+	 * Converts the object into an array.
+	 *
+	 * @return array
+	 */
+	public function to_array()
+	{
+		return $this->records;
 	}
 }
