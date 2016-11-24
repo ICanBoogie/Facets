@@ -216,7 +216,7 @@ be created with any of the following statements:
 ```php
 <?php
 
-use ICanBoogie\ActiveRecord\IntervalCriterionValue;
+use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
 
 $value = IntervalCriterionValue::from('123..456'); // between 123 and 456
 $value = IntervalCriterionValue::from('123..');    // >= 123
@@ -236,7 +236,7 @@ $value = new IntervalCriterionValue(123, null); // <= 456
 ```php
 <?php
 
-use ICanBoogie\ActiveRecord\IntervalCriterionValue;
+use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
 
 echo new IntervalCriterionValue(123, 456);    // "123..456"
 echo new IntervalCriterionValue(123, null);   // "123.."
@@ -261,7 +261,7 @@ following statements:
 ```php
 <?php
 
-use ICanBoogie\ActiveRecord\SetCriterionValue;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
 $value = SetCriterionValue::from('1|2');                    // 1 or 2
 $value = SetCriterionValue::from([ 1 => 'on', 2 => 'on' ]); // 1 or 2
@@ -273,7 +273,7 @@ $value = new SetCriterionValue([ 1, 2 ]);                   // 1 or 2
 ```php
 <?php
 
-use ICanBoogie\ActiveRecord\SetCriterionValue;
+use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
 echo new SetCriterionValue([ 1, 2, 3 ]); // "1|2|3"
 echo new SetCriterionValue([ 1 ]);       // "1"
