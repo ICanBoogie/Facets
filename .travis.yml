@@ -1,5 +1,10 @@
 sudo: false
 
+cache:
+  directories:
+    - $COMPOSER_CACHE_DIR
+    - $HOME/.composer/cache
+
 language: php
 
 php:
@@ -13,12 +18,12 @@ matrix:
     - php: hhvm
 
 before_script:
-  - travis_retry composer self-update
-  - composer require satooshi/php-coveralls --prefer-source
+  - if [[ $TRAVIS_PHP_VERSION != "5.5" ]]; then composer install --prefer-dist; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.5" ]]; then composer require satooshi/php-coveralls --prefer-dist; fi
 
 script:
   - mkdir -p build/logs
   - phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" = "5.5" ]; then php vendor/bin/coveralls -v; fi;'
+  - if [[ "$TRAVIS_PHP_VERSION" = "5.5" ]]; then php vendor/bin/coveralls -v; fi
