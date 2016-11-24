@@ -30,7 +30,7 @@ class AlterEventTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		EventCollectionProvider::using(function() {
+		EventCollectionProvider::define(function() {
 
 			return new EventCollection;
 

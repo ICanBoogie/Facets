@@ -13,6 +13,8 @@ namespace ICanBoogie\Facets;
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+use function ICanBoogie\normalize;
+
 /**
  * Representation of a query string word.
  *
@@ -64,7 +66,7 @@ class QueryStringWord
 	public function __construct($word, QueryString $q)
 	{
 		$this->word = $word;
-		$this->normalized = \ICanboogie\normalize($word);
+		$this->normalized = normalize($word);
 		$this->q = $q;
 	}
 
