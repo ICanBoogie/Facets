@@ -16,7 +16,7 @@ use ICanBoogie\EventCollectionProvider;
 use ICanBoogie\Facets;
 use ICanBoogie\Facets\RecordCollection;
 
-class AlterEventTest extends \PHPUnit_Framework_TestCase
+class AlterEventTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @var RecordCollection

@@ -4,7 +4,7 @@ namespace ICanBoogie\Facets\Criterion;
 
 use ICanBoogie\Facets\QueryString;
 
-class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
+class BooleanCriterionTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @dataProvider provide_test_parse_value

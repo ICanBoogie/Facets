@@ -13,7 +13,7 @@ namespace ICanBoogie\Facets;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-function prepare_error_test(\PHPUnit_Framework_TestCase $test)
+function prepare_error_test(\PHPUnit\Framework\TestCase $test)
 {
 	if (version_compare(PHP_VERSION, 7, '>='))
 	{

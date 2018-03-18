@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\Facets\CriterionValue;
 
-class SetCriterionValueTest extends \PHPUnit_Framework_TestCase
+class SetCriterionValueTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @dataProvider provide_test_from

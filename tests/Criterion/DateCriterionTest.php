@@ -4,7 +4,7 @@ namespace ICanBoogie\Facets\Criterion;
 
 use ICanBoogie\ActiveRecord\Query;
 
-class DateCriterionTest extends \PHPUnit_Framework_TestCase
+class DateCriterionTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @dataProvider provide_test_alter_query_with_value
@@ -13,7 +13,7 @@ class DateCriterionTest extends \PHPUnit_Framework_TestCase
 	 * @param mixed $value
 	 * @param callable $assert
 	 */
-	public function test_alter_query_with_value($query, $value, callable $assert = null)
+	public function test_alter_query_with_value(Query $query, $value, callable $assert = null)
 	{
 		$id = uniqid();
 		$criterion = new DateCriterion($id);
@@ -67,7 +67,7 @@ class DateCriterionTest extends \PHPUnit_Framework_TestCase
 				$this->assertEquals([ "(YEAR(`$id`) = ?)" ], $query->conditions);
 				$this->assertEquals([ $year ], $query->conditions_args);
 
-			} ]
+			} ],
 
 		];
 	}

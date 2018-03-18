@@ -454,21 +454,21 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[Model]:                       http://api.icanboogie.org/activerecord/3.0/docs/class-ICanBoogie.ActiveRecord.Model.html
-[CriterionList]:               http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.CriterionList.html
-[CriterionValue]:              http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.CriterionValue.html
-[BasicFetcher]:                http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.BasicFetcher.html
-[documentation]:               http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.IntervalCriterionValue.html
-[IntervalCriterionValue]:      http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.IntervalCriterionValue.html
-[QueryString]:                 http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.QueryString.html
-[RecordCollection]:            http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.RecordCollection.html
-[RecordCollection\AlterEvent]: http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.RecordCollection.AlterEvent.html
-[SetCriterionValue]:           http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.SetCriterionValue.html
-[alter_query_with_value()]:    http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.CriterionTrait.html#_alter_query_with_value
-[parse_value()]:               http://api.icanboogie.org/facets/0.7/class-ICanBoogie.Facets.CriterionTrait.html#_parse_value
+[Model]:                       https://icanboogie.org/api/activerecord/3.0/docs/class-ICanBoogie.ActiveRecord.Model.html
+[CriterionList]:               https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.CriterionList.html
+[CriterionValue]:              https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.CriterionValue.html
+[BasicFetcher]:                https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.BasicFetcher.html
+[documentation]:               https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[IntervalCriterionValue]:      https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.IntervalCriterionValue.html
+[QueryString]:                 https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.QueryString.html
+[RecordCollection]:            https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.RecordCollection.html
+[RecordCollection\AlterEvent]: https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.RecordCollection.AlterEvent.html
+[SetCriterionValue]:           https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.SetCriterionValue.html
+[alter_query_with_value()]:    https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.CriterionTrait.html#_alter_query_with_value
+[parse_value()]:               https://icanboogie.org/api/facets/0.7/class-ICanBoogie.Facets.CriterionTrait.html#_parse_value
 [icanboogie/activerecord]:     https://github.com/ICanBoogie/ActiveRecord
 [icanboogie/bind-facets]:      https://github.com/ICanBoogie/bind-facets
 [icanboogie/prototype]:        https://github.com/ICanBoogie/Prototype
-[ICanBoogie]:                  http://icanboogie.org/
+[ICanBoogie]:                  https://icanboogie.org/
 
 [faceted search]: http://en.wikipedia.org/wiki/Faceted_search

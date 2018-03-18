@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\Facets;
 
-class CriterionListTest extends \PHPUnit_Framework_TestCase
+class CriterionListTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @expectedException \ICanBoogie\Facets\CriterionNotDefined

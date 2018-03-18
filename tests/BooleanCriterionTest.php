@@ -17,7 +17,7 @@ use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\Facets\Criterion\BooleanCriterion;
 
-class BooleanCriterionTest extends \PHPUnit_Framework_TestCase
+class BooleanCriterionTest extends \PHPUnit\Framework\TestCase
 {
 	static private $model;
 

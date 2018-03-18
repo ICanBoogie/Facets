@@ -15,7 +15,7 @@ use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\Facets\Fetcher\BasicFetcher;
 
-class RecordCollectionTest extends \PHPUnit_Framework_TestCase
+class RecordCollectionTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @var \PHPUnit_Framework_MockObject_MockObject

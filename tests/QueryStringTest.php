@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\Facets;
 
-class QueryStringTest extends \PHPUnit_Framework_TestCase
+class QueryStringTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_search()
 	{

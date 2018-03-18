@@ -11,7 +11,7 @@
 
 namespace ICanBoogie\Facets\CriterionValue;
 
-class IntervalCriterionValueTest extends \PHPUnit_Framework_TestCase
+class IntervalCriterionValueTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @dataProvider provide_test_from
