@@ -1,8 +1,8 @@
 # customization
 
 PACKAGE_NAME = icanboogie/facets
-PACKAGE_VERSION = 0.7
-PHPUNIT_VERSION = phpunit-5.phar
+PACKAGE_VERSION = 0.8
+PHPUNIT_VERSION = phpunit-7.phar
 PHPUNIT_FILENAME = build/$(PHPUNIT_VERSION)
 PHPUNIT = php $(PHPUNIT_FILENAME)
 

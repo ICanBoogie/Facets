@@ -27,12 +27,12 @@ class QueryString implements \IteratorAggregate
 {
 	use AccessorTrait;
 
-	static private function parse_phrase($phrase)
+	static private function parse_phrase(string $phrase): array
 	{
-		$words = explode(' ', $phrase);
-		$words = array_map('trim', $words);
-		$words = array_filter($words);
-		$words = array_unique($words);
+		$words = \explode(' ', $phrase);
+		$words = \array_map('trim', $words);
+		$words = \array_filter($words);
+		$words = \array_unique($words);
 
 		return $words;
 	}
@@ -40,9 +40,9 @@ class QueryString implements \IteratorAggregate
 	protected $query_string;
 	protected $words;
 
-	public function __construct($query_string)
+	public function __construct(string $query_string)
 	{
-		$this->query_string = (string) $query_string;
+		$this->query_string = $query_string;
 
 		$words = self::parse_phrase($query_string);
 
@@ -71,13 +71,13 @@ class QueryString implements \IteratorAggregate
 	 *
 	 * @return QueryStringWord[]|null
 	 */
-	public function search($phrase)
+	public function search(string $phrase): ?iterable
 	{
 		$words = self::parse_phrase($phrase);
-		$normalized_words = array_map('ICanBoogie\normalize', $words);
+		$normalized_words = \array_map('ICanBoogie\normalize', $words);
 
 		$i = 0;
-		$count = count($normalized_words);
+		$count = \count($normalized_words);
 		$matches = [];
 
 		foreach ($this->words as $word)
@@ -112,9 +112,9 @@ class QueryString implements \IteratorAggregate
 	 *
 	 * @return QueryStringWord|null
 	 */
-	public function before(QueryStringWord $word)
+	public function before(QueryStringWord $word): ?QueryStringWord
 	{
-		$i = array_search($word, $this->words);
+		$i = \array_search($word, $this->words);
 
 		if ($i == 0)
 		{
@@ -131,11 +131,11 @@ class QueryString implements \IteratorAggregate
 	 *
 	 * @return QueryStringWord|null
 	 */
-	public function after(QueryStringWord $word)
+	public function after(QueryStringWord $word): ?QueryStringWord
 	{
-		$i = array_search($word, $this->words);
+		$i = \array_search($word, $this->words);
 
-		if ($i + 1 == count($this->words))
+		if ($i + 1 == \count($this->words))
 		{
 			return null;
 		}
@@ -148,7 +148,7 @@ class QueryString implements \IteratorAggregate
 	 *
 	 * @return QueryStringWord[]
 	 */
-	protected function get_matched()
+	protected function get_matched(): array
 	{
 		$rc = [];
 
@@ -170,7 +170,7 @@ class QueryString implements \IteratorAggregate
 	 *
 	 * @return QueryStringWord[]
 	 */
-	protected function get_not_matched()
+	protected function get_not_matched(): array
 	{
 		$rc = [];
 
@@ -189,10 +189,8 @@ class QueryString implements \IteratorAggregate
 
 	/**
 	 * Returns criterion values per criterion identifier.
-	 *
-	 * @return array
 	 */
-	protected function get_matches()
+	protected function get_matches(): array
 	{
 		$matches = [];
 
@@ -209,16 +207,14 @@ class QueryString implements \IteratorAggregate
 
 	/**
 	 * Returns an array of facet conditions.
-	 *
-	 * @return array
 	 */
-	protected function get_conditions()
+	protected function get_conditions(): array
 	{
-		return array_map(function($v) {
+		return \array_map(function($v) {
 
-			if (count($v) === 1)
+			if (\count($v) === 1)
 			{
-				return reset($v);
+				return \reset($v);
 			}
 
 			return new SetCriterionValue($v);
@@ -229,8 +225,8 @@ class QueryString implements \IteratorAggregate
 	/**
 	 * Returns what remains of the query string after removing matched words.
 	 */
-	protected function get_remains()
+	protected function get_remains(): string
 	{
-		return implode(' ', $this->not_matched);
+		return \implode(' ', $this->not_matched);
 	}
 }

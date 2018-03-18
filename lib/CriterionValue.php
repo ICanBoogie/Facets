@@ -74,10 +74,10 @@ class CriterionValue
 
 		#
 
-		return trim($value);
+		return \trim($value);
 	}
 
-	protected $value;
+	private $value;
 
 	public function __construct($value)
 	{

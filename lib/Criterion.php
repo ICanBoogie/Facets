@@ -15,6 +15,8 @@ use ICanBoogie\ActiveRecord\Query;
 
 /**
  * An interface common to Criteria.
+ *
+ * @property-read string $id
  */
 interface Criterion
 {
@@ -22,15 +24,15 @@ interface Criterion
 	 * Parses the query string and marks words matched by the criterion.
 	 *
 	 * @param QueryString $q
-	 *
-	 * @return QueryString
 	 */
-	public function parse_query_string(QueryString $q);
+	public function parse_query_string(QueryString $q): void;
 
 	/**
 	 * Parses a criterion value.
 	 *
 	 * @param mixed $value
+	 *
+	 * @return mixed
 	 */
 	public function parse_value($value);
 
@@ -40,7 +42,7 @@ interface Criterion
 	 * @param array $conditions The conditions to alter.
 	 * @param array $modifiers The modifiers.
 	 */
-	public function alter_conditions(array &$conditions, array $modifiers);
+	public function alter_conditions(array &$conditions, array $modifiers): void;
 
 	/**
 	 * Alters the initial query.
@@ -49,7 +51,7 @@ interface Criterion
 	 *
 	 * @return Query $query The altered query.
 	 */
-	public function alter_query(Query $query);
+	public function alter_query(Query $query): Query;
 
 	/**
 	 * Alters the query according to the value specified.
@@ -61,7 +63,7 @@ interface Criterion
 	 *
 	 * @return Query
 	 */
-	public function alter_query_with_value(Query $query, $value);
+	public function alter_query_with_value(Query $query, $value): Query;
 
 	/**
 	 * Alters the ORDER clause of the query according to the column identifier and the order
@@ -74,14 +76,12 @@ interface Criterion
 	 *
 	 * @return Query
 	 */
-	public function alter_query_with_order(Query $query, $order_direction);
+	public function alter_query_with_order(Query $query, $order_direction): Query;
 
 	/**
 	 * Alters the records.
 	 *
 	 * @param \ICanBoogie\ActiveRecord[] $records
-	 *
-	 * @return \ICanBoogie\ActiveRecord[]
 	 */
-	public function alter_records(array &$records);
+	public function alter_records(array &$records): void;
 }

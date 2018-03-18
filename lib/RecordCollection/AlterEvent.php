@@ -30,12 +30,12 @@ class AlterEvent extends Event
 	 */
 	private $instance;
 
-	protected function get_instance()
+	protected function get_instance(): RecordCollection
 	{
 		return $this->instance;
 	}
 
-	protected function set_instance(RecordCollection $instance)
+	protected function set_instance(RecordCollection $instance): void
 	{
 		$this->instance = $instance;
 	}

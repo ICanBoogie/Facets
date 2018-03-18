@@ -18,7 +18,7 @@ use ICanBoogie\ActiveRecord\Query;
  */
 class DateCriterion extends BasicCriterion
 {
-	public function alter_query_with_value(Query $query, $value)
+	public function alter_query_with_value(Query $query, $value): Query
 	{
 		if (!$value)
 		{

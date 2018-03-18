@@ -26,7 +26,7 @@ trait ParseQueryStringTrait
 	 *
 	 * @param QueryString $q
 	 */
-	public function parse_query_string(QueryString $q)
+	public function parse_query_string(QueryString $q): void
 	{
 		$matchables = $this->provide_query_string_matchables();
 
@@ -48,5 +48,5 @@ trait ParseQueryStringTrait
 	/**
 	 * @return array An array of value/normalized_match pairs.
 	 */
-	abstract protected function provide_query_string_matchables();
+	abstract protected function provide_query_string_matchables(): array;
 }

@@ -29,16 +29,16 @@ class IntervalCriterionValue implements ToArray
 	 *
 	 * @return IntervalCriterionValue|null
 	 */
-	static public function from($value)
+	static public function from($value): ?self
 	{
 		if (!$value)
 		{
 			return null;
 		}
 
-		if (is_array($value))
+		if (\is_array($value))
 		{
-			if (!array_key_exists('min', $value) || !array_key_exists('max', $value))
+			if (!\array_key_exists('min', $value) || !\array_key_exists('max', $value))
 			{
 				return null;
 			}
@@ -48,21 +48,21 @@ class IntervalCriterionValue implements ToArray
 		}
 		else
 		{
-			$value = trim($value);
+			$value = \trim($value);
 
-			if ($value === self::SEPARATOR || strpos($value, self::SEPARATOR) === false)
+			if ($value === self::SEPARATOR || \strpos($value, self::SEPARATOR) === false)
 			{
 				return null;
 			}
 
-			$interval = explode(self::SEPARATOR, $value);
+			$interval = \explode(self::SEPARATOR, $value);
 
-			if (count($interval) != 2)
+			if (\count($interval) != 2)
 			{
 				return null;
 			}
 
-			list($min, $max) = array_map('trim', $interval);
+			[ $min, $max ] = \array_map('trim', $interval);
 		}
 
 		if ($min === '') $min = null;
@@ -80,12 +80,7 @@ class IntervalCriterionValue implements ToArray
 		$this->max = $max;
 	}
 
-	/**
-	 * Formats the interval as a string.
-	 *
-	 * @return string
-	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		if (!$this->min && !$this->max)
 		{
@@ -103,7 +98,7 @@ class IntervalCriterionValue implements ToArray
 	/**
 	 * @return array An array made of the {@link $min} and {@link max} values.
 	 */
-	public function to_array()
+	public function to_array(): array
 	{
 		return [ $this->min, $this->max ];
 	}

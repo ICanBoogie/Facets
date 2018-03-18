@@ -27,12 +27,10 @@ class BasicCriterion implements Criterion
 	use CriterionTrait;
 
 	/**
-	 * Initializes the {@link $id} and {@link $column_name} properties.
-	 *
 	 * @param string $id
 	 * @param array $options
 	 */
-	public function __construct($id, array $options = [])
+	public function __construct(string $id, array $options = [])
 	{
 		$this->id = $id;
 		$this->column_name = empty($options['column_name']) ? $id : $options['column_name'];

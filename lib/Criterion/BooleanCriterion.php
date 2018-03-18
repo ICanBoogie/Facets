@@ -29,7 +29,7 @@ class BooleanCriterion extends BasicCriterion
 	/**
 	 * @inheritdoc
 	 */
-	public function parse_query_string(QueryString $q)
+	public function parse_query_string(QueryString $q): void
 	{
 		foreach ($q->not_matched as $word)
 		{

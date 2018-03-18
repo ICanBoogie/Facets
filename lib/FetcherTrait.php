@@ -21,18 +21,11 @@ use ICanBoogie\ActiveRecord\Query;
 trait FetcherTrait
 {
 	/**
-	 * Criterion list.
-	 *
 	 * @var CriterionList
 	 */
 	protected $criterion_list;
 
-	/**
-	 * Returns the criterion list.
-	 *
-	 * @return CriterionList
-	 */
-	protected function get_criterion_list()
+	protected function get_criterion_list(): CriterionList
 	{
 		return $this->criterion_list;
 	}
@@ -40,7 +33,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_criterion_list(CriterionList $criterion_list)
+	public function alter_criterion_list(CriterionList $criterion_list): CriterionList
 	{
 		return $criterion_list;
 	}
@@ -48,7 +41,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function parse_query_string($q)
+	public function parse_query_string($q): QueryString
 	{
 		return $this->criterion_list->parse_query_string($q);
 	}
@@ -56,17 +49,15 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_conditions(array &$conditions, array $modifiers)
+	public function alter_conditions(array &$conditions, array $modifiers): void
 	{
 		$this->criterion_list->alter_conditions($conditions, $modifiers);
-
-		return $conditions;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_query(Query $query)
+	public function alter_query(Query $query): Query
 	{
 		$this->criterion_list->alter_query($query);
 
@@ -76,7 +67,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_query_with_conditions(Query $query, array $conditions)
+	public function alter_query_with_conditions(Query $query, array $conditions): Query
 	{
 		$this->criterion_list->alter_query_with_conditions($query, $conditions);
 
@@ -86,7 +77,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_query_with_order(Query $query, $criterion_id, $order_direction=1)
+	public function alter_query_with_order(Query $query, string $criterion_id, int $order_direction = 1): Query
 	{
 		$this->criterion_list->alter_query_with_order($query, $criterion_id, $order_direction);
 
@@ -96,7 +87,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function count_records(Query $query)
+	public function count_records(Query $query): int
 	{
 		return $query->count;
 	}
@@ -104,7 +95,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_query_with_limit(Query $query, $offset, $limit)
+	public function alter_query_with_limit(Query $query, int $offset, ?int $limit): Query
 	{
 		return $query->limit($offset, $limit);
 	}
@@ -112,7 +103,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function fetch_records(Query $query)
+	public function fetch_records(Query $query): array
 	{
 		return $query->all;
 	}
@@ -120,7 +111,7 @@ trait FetcherTrait
 	/**
 	 * @inheritdoc
 	 */
-	public function alter_records(array &$records)
+	public function alter_records(array &$records): void
 	{
 		$this->criterion_list->alter_records($records);
 	}

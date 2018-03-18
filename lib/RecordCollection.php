@@ -46,11 +46,11 @@ class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 	private $records;
 
 	/**
-	 * @var BasicFetcher
+	 * @var Fetcher
 	 */
 	private $fetcher;
 
-	protected function get_fetcher()
+	protected function get_fetcher(): Fetcher
 	{
 		return $this->fetcher;
 	}
@@ -58,11 +58,11 @@ class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 	/**
 	 * Returns the first record in the collection.
 	 *
-	 * @return ActiveRecord
+	 * @return ActiveRecord|null
 	 */
-	protected function get_one()
+	protected function get_one(): ?ActiveRecord
 	{
-		return reset($this->records);
+		return \reset($this->records);
 	}
 
 	/**
@@ -70,12 +70,12 @@ class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 	 *
 	 * @return int
 	 */
-	protected function get_total_count()
+	protected function get_total_count(): int
 	{
 		return $this->fetcher->count;
 	}
 
-	public function __construct(array $records, BasicFetcher $fetcher)
+	public function __construct(array $records, Fetcher $fetcher)
 	{
 		$this->records = $records;
 		$this->fetcher = $fetcher;
@@ -83,7 +83,7 @@ class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 
 	public function __get($property)
 	{
-		if (in_array($property, self::$forwarded_properties))
+		if (\in_array($property, self::$forwarded_properties))
 		{
 			return $this->fetcher->$property;
 		}
@@ -104,13 +104,11 @@ class RecordCollection implements \IteratorAggregate, \Countable, ToArray
 	 */
 	public function count()
 	{
-		return count($this->records);
+		return \count($this->records);
 	}
 
 	/**
-	 * Converts the object into an array.
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
 	public function to_array()
 	{

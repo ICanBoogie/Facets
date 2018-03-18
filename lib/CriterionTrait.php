@@ -25,12 +25,9 @@ trait CriterionTrait
 	 *
 	 * @var string
 	 */
-	protected $id;
+	private $id;
 
-	/**
-	 * Returns the criterion's identifier.
-	 */
-	protected function get_id()
+	protected function get_id(): string
 	{
 		return $this->id;
 	}
@@ -40,12 +37,9 @@ trait CriterionTrait
 	 *
 	 * @var string
 	 */
-	protected $column_name;
+	private $column_name;
 
-	/**
-	 * Returns the criterion's column name, or if it is empty the criterion's identifier.
-	 */
-	protected function get_column_name()
+	protected function get_column_name(): string
 	{
 		return $this->column_name ?: $this->id;
 	}
@@ -54,12 +48,10 @@ trait CriterionTrait
 	 * Parses the query string and marks words matched by the criterion.
 	 *
 	 * @param QueryString $q
-	 *
-	 * @return QueryString
 	 */
-	public function parse_query_string(QueryString $q)
+	public function parse_query_string(QueryString $q): void
 	{
-		return $q;
+
 	}
 
 	/**
@@ -77,10 +69,9 @@ trait CriterionTrait
 	/**
 	 * Unset the condition if the modifier is `null` or an empty string.
 	 *
-	 * @param array $conditions
-	 * @param array $modifiers
+	 * @inheritdoc
 	 */
-	public function alter_conditions(array &$conditions, array $modifiers)
+	public function alter_conditions(array &$conditions, array $modifiers): void
 	{
 		if (!isset($modifiers[$this->id]) || $modifiers[$this->id] === '')
 		{
@@ -92,7 +83,10 @@ trait CriterionTrait
 		$conditions[$this->id] = $modifiers[$this->id];
 	}
 
-	public function alter_query(Query $query)
+	/**
+	 * @inheritdoc
+	 */
+	public function alter_query(Query $query): Query
 	{
 		return $query;
 	}
@@ -111,7 +105,7 @@ trait CriterionTrait
 	 *
 	 * @return Query
 	 */
-	public function alter_query_with_value(Query $query, $value)
+	public function alter_query_with_value(Query $query, $value): Query
 	{
 		if ($value instanceof IntervalCriterionValue)
 		{
@@ -146,12 +140,15 @@ trait CriterionTrait
 	 *
 	 * @return Query
 	 */
-	public function alter_query_with_order(Query $query, $order_direction)
+	public function alter_query_with_order(Query $query, $order_direction): Query
 	{
 		return $query->order("`$this->column_name` " . ($order_direction < 0 ? 'DESC' : 'ASC'));
 	}
 
-	public function alter_records(array &$records)
+	/**
+	 * @inheritdoc
+	 */
+	public function alter_records(array &$records): void
 	{
 
 	}
@@ -182,9 +179,9 @@ trait CriterionTrait
 	 */
 	public function format_humanized_value($humanized_value)
 	{
-		if (is_array($humanized_value))
+		if (\is_array($humanized_value))
 		{
-			return implode(', ', $humanized_value);
+			return \implode(', ', $humanized_value);
 		}
 
 		return $humanized_value;

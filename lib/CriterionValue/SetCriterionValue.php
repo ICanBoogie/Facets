@@ -29,42 +29,42 @@ class SetCriterionValue implements ToArray, \Countable
 	 *
 	 * @return SetCriterionValue|null
 	 */
-	static public function from($value)
+	static public function from($value): ?self
 	{
 		if (!$value)
 		{
 			return null;
 		}
 
-		if (is_array($value))
+		if (\is_array($value))
 		{
-			if (current($value) !== 'on')
+			if (\current($value) !== 'on')
 			{
 				return new static($value);
 			}
 
-			$set = array_keys($value);
+			$set = \array_keys($value);
 		}
 		else
 		{
-			$value = trim($value);
+			$value = \trim($value);
 
-			if ($value === self::SEPARATOR || strpos($value, self::SEPARATOR) === false)
+			if ($value === self::SEPARATOR || \strpos($value, self::SEPARATOR) === false)
 			{
 				return null;
 			}
 
-			$set = explode(self::SEPARATOR, $value);
+			$set = \explode(self::SEPARATOR, $value);
 		}
 
-		$set = array_map('trim', $set);
-		$set = array_unique($set);
-		$set = array_values($set);
+		$set = \array_map('trim', $set);
+		$set = \array_unique($set);
+		$set = \array_values($set);
 
 		return new static($set);
 	}
 
-	protected $set;
+	private $set;
 
 	public function __construct(array $set)
 	{
@@ -76,27 +76,23 @@ class SetCriterionValue implements ToArray, \Countable
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
-		return implode(self::SEPARATOR, $this->set);
+		return \implode(self::SEPARATOR, $this->set);
 	}
 
 	/**
-	 * Returns the number of members in the set.
-	 *
-	 * @return int
+	 * @inheritdoc
 	 */
 	public function count()
 	{
-		return count($this->set);
+		return \count($this->set);
 	}
 
 	/**
-	 * Returns the set as an array.
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
-	public function to_array()
+	public function to_array(): array
 	{
 		return $this->set;
 	}

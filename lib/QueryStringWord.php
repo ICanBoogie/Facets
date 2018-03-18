@@ -40,7 +40,7 @@ class QueryStringWord
 	 */
 	protected $normalized;
 
-	protected function get_normalized()
+	protected function get_normalized(): string
 	{
 		return $this->normalized;
 	}
@@ -50,7 +50,7 @@ class QueryStringWord
 	/**
 	 * @return QueryStringWord|null
 	 */
-	protected function get_previous()
+	protected function get_previous(): ?QueryStringWord
 	{
 		return $this->q->before($this);
 	}
@@ -58,12 +58,12 @@ class QueryStringWord
 	/**
 	 * @return QueryStringWord|null
 	 */
-	protected function get_next()
+	protected function get_next(): ?QueryStringWord
 	{
 		return $this->q->after($this);
 	}
 
-	public function __construct($word, QueryString $q)
+	public function __construct(string $word, QueryString $q)
 	{
 		$this->word = $word;
 		$this->normalized = normalize($word);
@@ -72,10 +72,8 @@ class QueryStringWord
 
 	/**
 	 * Returns the query string word.
-	 *
-	 * @return string
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->word;
 	}

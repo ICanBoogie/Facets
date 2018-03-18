@@ -50,14 +50,9 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var Model
 	 */
-	protected $model;
+	private $model;
 
-	/**
-	 * Return the {@link $model} property.
-	 *
-	 * @return Model
-	 */
-	protected function get_model()
+	protected function get_model(): Model
 	{
 		return $this->model;
 	}
@@ -67,14 +62,9 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var array
 	 */
-	protected $modifiers;
+	private $modifiers;
 
-	/**
-	 * Return the {@link $modifiers} property.
-	 *
-	 * @return array
-	 */
-	protected function get_modifiers()
+	protected function get_modifiers(): array
 	{
 		return $this->modifiers;
 	}
@@ -84,7 +74,7 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var array
 	 */
-	protected $options = [];
+	private $options = [];
 
 	/**
 	 * Initial query.
@@ -93,12 +83,7 @@ class BasicFetcher implements Fetcher
 	 */
 	private $initial_query;
 
-	/**
-	 * Return the {@link $initial_query} property.
-	 *
-	 * @return Query
-	 */
-	protected function get_initial_query()
+	protected function get_initial_query(): Query
 	{
 		if (empty($this->initial_query))
 		{
@@ -115,12 +100,7 @@ class BasicFetcher implements Fetcher
 	 */
 	private $query;
 
-	/**
-	 * Return the query used to fetch the records.
-	 *
-	 * @return Query
-	 */
-	protected function get_query()
+	protected function get_query(): Query
 	{
 		return $this->query;
 	}
@@ -130,14 +110,9 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var QueryString
 	 */
-	protected $query_string;
+	private $query_string;
 
-	/**
-	 * Return the {@link $query_string} property.
-	 *
-	 * @return QueryString
-	 */
-	protected function get_query_string()
+	protected function get_query_string(): QueryString
 	{
 		return $this->query_string;
 	}
@@ -147,14 +122,9 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var array
 	 */
-	protected $conditions = [];
+	private $conditions = [];
 
-	/**
-	 * Return the {@link $conditions} property.
-	 *
-	 * @return array
-	 */
-	protected function get_conditions()
+	protected function get_conditions(): array
 	{
 		return $this->conditions;
 	}
@@ -164,14 +134,9 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var string|null
 	 */
-	protected $order;
+	private $order;
 
-	/**
-	 * Return the {@link $order} property.
-	 *
-	 * @return string|null
-	 */
-	protected function get_order()
+	protected function get_order(): ?string
 	{
 		return $this->order;
 	}
@@ -181,26 +146,24 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var string|null
 	 */
-	protected $limit;
+	private $limit;
 
-	/**
-	 * Return the {@link $limit} property.
-	 *
-	 * @return int|null
-	 */
-	protected function get_limit()
+	protected function get_limit(): ?int
 	{
 		return $this->limit;
 	}
 
-	protected $offset;
+	/**
+	 * @var int|null
+	 */
+	private $offset;
 
-	protected function get_offset()
+	protected function get_offset(): ?int
 	{
 		return $this->offset;
 	}
 
-	protected function get_page()
+	protected function get_page(): int
 	{
 		$limit = $this->limit;
 
@@ -217,21 +180,14 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @var int
 	 */
-	protected $count;
+	private $count;
 
-	/**
-	 * Return the {@link $count} property.
-	 *
-	 * @return int
-	 */
-	protected function get_count()
+	protected function get_count(): int
 	{
 		return $this->count;
 	}
 
 	/**
-	 * Initializes the {@link $model}, {@link $options} and {@link $criterion_list} properties.
-	 *
 	 * @param Model|ModelBindings $model
 	 * @param array $options
 	 */
@@ -268,13 +224,13 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @param array $modifiers
 	 *
-	 * @return array The records matching the query.
+	 * @return RecordCollection
 	 */
-	public function __invoke(array $modifiers)
+	public function __invoke(array $modifiers): RecordCollection
 	{
 		$this->modifiers = $modifiers;
 
-		list($conditions, $properties) = $this->parse_modifiers($modifiers);
+		[ $conditions, $properties ] = $this->parse_modifiers($modifiers);
 
 		$this->conditions = $conditions;
 
@@ -283,10 +239,7 @@ class BasicFetcher implements Fetcher
 			$this->$property = $value;
 		}
 
-		#
-
 		$query = clone $this->get_initial_query();
-
 		$query = $this->alter_query($query);
 		$query = $this->alter_query_with_conditions($query, $conditions);
 		$this->count = $this->count_records($query);
@@ -297,7 +250,6 @@ class BasicFetcher implements Fetcher
 		$this->query = $query;
 
 		$records = $this->fetch_records($query);
-
 		$this->alter_records($records);
 
 		return new RecordCollection($records, clone $this);
@@ -308,7 +260,7 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @return Query
 	 */
-	protected function create_initial_query()
+	protected function create_initial_query(): Query
 	{
 		return new Query($this->model);
 	}
@@ -320,7 +272,7 @@ class BasicFetcher implements Fetcher
 	 *
 	 * @return array
 	 */
-	protected function parse_modifiers(array $modifiers)
+	protected function parse_modifiers(array $modifiers): array
 	{
 		$modifiers += [
 

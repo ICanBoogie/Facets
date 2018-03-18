@@ -20,22 +20,18 @@ use ICanBoogie\ToArray;
 class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 {
 	/**
-	 * Criterion list.
-	 *
 	 * @var Criterion[]
 	 */
-	protected $criterion_list = [];
+	private $criterion_list = [];
 
 	/**
-	 * Initializes the {@link $criterion_list} property.
-	 *
 	 * @param array $criterion_list A list of criteria.
 	 */
 	public function __construct(array $criterion_list = [])
 	{
 		foreach ($criterion_list as $criterion_id => &$criterion)
 		{
-			if (is_string($criterion))
+			if (\is_string($criterion))
 			{
 				$criterion = new $criterion($criterion_id);
 			}
@@ -85,7 +81,10 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 		unset($this->criterion_list[$criterion_id]);
 	}
 
-	public function to_array()
+	/**
+	 * @inheritdoc
+	 */
+	public function to_array(): array
 	{
 		return $this->criterion_list;
 	}
@@ -97,9 +96,9 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @return QueryString
 	 */
-	public function parse_query_string($q)
+	public function parse_query_string($q): QueryString
 	{
-		if (!($q instanceof QueryString))
+		if (!$q instanceof QueryString)
 		{
 			$q = new QueryString($q);
 		}
@@ -120,9 +119,9 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param array $conditions The conditions to alter.
 	 * @param array $modifiers The modifiers.
 	 *
-	 * @return array The altered conditions.
+	 * @return $this
 	 */
-	public function alter_conditions(array &$conditions, array $modifiers)
+	public function alter_conditions(array &$conditions, array $modifiers): self
 	{
 		foreach ($this->criterion_list as $criterion)
 		{
@@ -139,9 +138,9 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param Query $query
 	 *
-	 * @return CriterionList
+	 * @return $this
 	 */
-	public function alter_query(Query &$query)
+	public function alter_query(Query &$query): self
 	{
 		foreach ($this->criterion_list as $criterion)
 		{
@@ -160,13 +159,13 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param Query $query The query to alter.
 	 * @param array $values The criteria values, as returned by the {@link alter_conditions()} method.
 	 *
-	 * @return CriterionList
+	 * @return $this
 	 */
-	public function alter_query_with_conditions(Query &$query, array $values)
+	public function alter_query_with_conditions(Query &$query, array $values): self
 	{
 		foreach ($this->criterion_list as $criterion)
 		{
-			if (!array_key_exists($criterion->id, $values))
+			if (!\array_key_exists($criterion->id, $values))
 			{
 				continue;
 			}
@@ -192,14 +191,14 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 * @param int $order_direction The direction of the order: 1 ascending, -1 descending.
 	 * Default: 1.
 	 *
-	 * @return CriterionList
+	 * @return $this
 	 */
-	public function alter_query_with_order(Query &$query, $criterion_id, $order_direction = 1)
+	public function alter_query_with_order(Query &$query, string $criterion_id, int $order_direction = 1): self
 	{
 		if ($criterion_id{0} == '-')
 		{
 			$order_direction = -1;
-			$criterion_id = substr($criterion_id, 1);
+			$criterion_id = \substr($criterion_id, 1);
 		}
 
 		if (empty($this->criterion_list[$criterion_id]))
@@ -208,7 +207,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 		}
 
 		$query = $this->criterion_list[$criterion_id]
-		->alter_query_with_order($query, $order_direction);
+			->alter_query_with_order($query, $order_direction);
 
 		return $this;
 	}
@@ -220,9 +219,9 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @param array $records
 	 *
-	 * @return CriterionList
+	 * @return $this
 	 */
-	public function alter_records(array &$records)
+	public function alter_records(array &$records): self
 	{
 		foreach ($this->criterion_list as $criterion)
 		{
@@ -239,7 +238,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 *
 	 * @return string[]
 	 */
-	public function humanize(array $conditions)
+	public function humanize(array $conditions): array
 	{
 		$humanized = [];
 
@@ -254,6 +253,6 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 			$humanized[$criterion_id] = $criterion->format_humanized_value($criterion->humanize($value));
 		}
 
-		return array_filter($humanized);
+		return \array_filter($humanized);
 	}
 }
