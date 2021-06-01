@@ -1,9 +1,9 @@
 # Facets
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/facets.svg)](https://github.com/ICanBoogie/Facets/releases)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Facets/master.svg)](http://travis-ci.org/ICanBoogie/Facets)
-[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Facets/master.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Facets)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
+[![Build Status](https://img.shields.io/github/workflow/status/ICanBoogie/Facets/test)](https://github.com/ICanBoogie/Facets/actions?query=workflow%3Atest)
+[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Facets.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Facets)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets.svg)](https://coveralls.io/r/ICanBoogie/Facets)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/facets.svg)](https://packagist.org/packages/icanboogie/facets)
 
 Together with the [icanboogie/activerecord] package, this library makes it easy to implement
