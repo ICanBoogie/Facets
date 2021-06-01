@@ -14,8 +14,9 @@ namespace ICanBoogie\Facets;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\Facets\Fetcher\BasicFetcher;
+use PHPUnit\Framework\TestCase;
 
-class RecordCollectionTest extends \PHPUnit\Framework\TestCase
+class RecordCollectionTest extends TestCase
 {
 	/**
 	 * @var \PHPUnit_Framework_MockObject_MockObject
@@ -37,7 +38,7 @@ class RecordCollectionTest extends \PHPUnit\Framework\TestCase
 	 */
 	private $collection;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		$criterion_list = $this
 			->getMockBuilder(CriterionList::class)

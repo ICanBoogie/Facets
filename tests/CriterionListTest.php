@@ -11,13 +11,13 @@
 
 namespace ICanBoogie\Facets;
 
-class CriterionListTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class CriterionListTest extends TestCase
 {
-	/**
-	 * @expectedException \ICanBoogie\Facets\CriterionNotDefined
-	 */
 	public function test_get_undefined()
 	{
+		$this->expectException(CriterionNotDefined::class);
 		$l = new CriterionList;
 		$l['undefined'];
 	}

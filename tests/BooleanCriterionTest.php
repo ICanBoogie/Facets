@@ -16,12 +16,13 @@ use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\Facets\Criterion\BooleanCriterion;
+use PHPUnit\Framework\TestCase;
 
-class BooleanCriterionTest extends \PHPUnit\Framework\TestCase
+class BooleanCriterionTest extends TestCase
 {
 	static private $model;
 
-	static public function setupBeforeClass()
+	static public function setupBeforeClass(): void
 	{
 		$connections = new ConnectionCollection([
 

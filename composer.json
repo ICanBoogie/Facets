@@ -22,15 +22,18 @@
 		"issues": "https://github.com/ICanBoogie/Facets/issues",
 		"source": "https://github.com/ICanBoogie/Facets"
 	},
+	"config": {
+		"sort-packages": true
+	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
-	"prefer-dist": true,
 	"require": {
-		"php": "^7.2",
+		"php": ">=7.2",
 		"icanboogie/activerecord": "^5.0"
 	},
 	"require-dev": {
-		"icanboogie/event": "^4.0"
+		"icanboogie/event": "^4.0",
+		"phpunit/phpunit": "^8.5"
 	},
 	"autoload": {
 		"psr-4": {

@@ -2,16 +2,16 @@
 
 namespace ICanBoogie\Facets\Criterion;
 
+use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Query;
+use PHPUnit\Framework\TestCase;
 
-class DateCriterionTest extends \PHPUnit\Framework\TestCase
+class DateCriterionTest extends TestCase
 {
 	/**
 	 * @dataProvider provide_test_alter_query_with_value
 	 *
-	 * @param Query $query
 	 * @param mixed $value
-	 * @param callable $assert
 	 */
 	public function test_alter_query_with_value(Query $query, $value, callable $assert = null)
 	{
@@ -26,16 +26,17 @@ class DateCriterionTest extends \PHPUnit\Framework\TestCase
 		}
 	}
 
-	public function provide_test_alter_query_with_value()
+	public function provide_test_alter_query_with_value(): array
 	{
-		$q1 = $this->getMockBuilder(Query::class)->disableOriginalConstructor()->getMock();
-		$q1->expects($this->never())->method('and');
-
-		$q2 = $this
-			->getMockBuilder(Query::class)
+		$model = $this->getMockBuilder(Model::class)
 			->disableOriginalConstructor()
-			->setMethods(null)
 			->getMock();
+
+		$q1 = new class($model) extends Query {
+		};
+
+		$q2 = new class($model) extends Query {
+		};
 
 		$date = new \DateTime;
 		$year = $date->format('Y');

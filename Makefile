@@ -1,55 +1,55 @@
 # customization
 
 PACKAGE_NAME = icanboogie/facets
-PACKAGE_VERSION = 0.8
-PHPUNIT_VERSION = phpunit-7.phar
-PHPUNIT_FILENAME = build/$(PHPUNIT_VERSION)
-PHPUNIT = php $(PHPUNIT_FILENAME)
+PHPUNIT = vendor/bin/phpunit
 
 # do not edit the following lines
 
+.PHONY: usage
 usage:
 	@echo "test:  Runs the test suite.\ndoc:   Creates the documentation.\nclean: Removes the documentation, the dependencies and the Composer files."
 
 vendor:
-	@COMPOSER_ROOT_VERSION=$(PACKAGE_VERSION) composer install
-DateCriterionTest:
+	@composer install
+
+.PHONY: update
 update:
-	@COMPOSER_ROOT_VERSION=$(PACKAGE_VERSION) composer update
+	@composer update
 
-autoload: vendor
-	@composer dump-autoload
+# testing
 
-test-dependencies: vendor $(PHPUNIT_FILENAME)
+test-dependencies: vendor
 
-$(PHPUNIT_FILENAME):
-	mkdir -p build
-	wget https://phar.phpunit.de/$(PHPUNIT_VERSION) -O $(PHPUNIT_FILENAME) -q
-
+.PHONY: test
 test: test-dependencies
 	@$(PHPUNIT)
 
+.PHONY: test-coverage
 test-coverage: test-dependencies
 	@mkdir -p build/coverage
-	@$(PHPUNIT) --coverage-html build/coverage
+	@$(PHPUNIT) --coverage-html ../build/coverage --coverage-text
 
+.PHONY: test-coveralls
 test-coveralls: test-dependencies
 	@mkdir -p build/logs
-	COMPOSER_ROOT_VERSION=$(PACKAGE_VERSION) composer require satooshi/php-coveralls
-	@$(PHPUNIT) --coverage-clover build/logs/clover.xml
-	php vendor/bin/php-coveralls -v
+	@$(PHPUNIT) --coverage-clover ../build/logs/clover.xml
 
+.PHONY: test-container
+test-container:
+	@-docker-compose run --rm app bash
+	@docker-compose down -v
+
+.PHONY: doc
 doc: vendor
 	@mkdir -p build/docs
 	@apigen generate \
 	--source lib \
 	--destination build/docs/ \
-	--title "$(PACKAGE_NAME) v$(PACKAGE_VERSION)" \
+	--title "$(PACKAGE_NAME)" \
 	--template-theme "bootstrap"
 
+.PHONY: clean
 clean:
 	@rm -fR build
 	@rm -fR vendor
 	@rm -f composer.lock
-
-.PHONY: all autoload doc clean test test-coverage test-coveralls test-dependencies update

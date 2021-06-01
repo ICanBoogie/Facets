@@ -15,15 +15,16 @@ use ICanBoogie\EventCollection;
 use ICanBoogie\EventCollectionProvider;
 use ICanBoogie\Facets;
 use ICanBoogie\Facets\RecordCollection;
+use PHPUnit\Framework\TestCase;
 
-class AlterEventTest extends \PHPUnit\Framework\TestCase
+class AlterEventTest extends TestCase
 {
 	/**
 	 * @var RecordCollection
 	 */
 	private $collection;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		$this->collection = $this
 			->getMockBuilder(RecordCollection::class)

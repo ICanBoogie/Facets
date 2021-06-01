@@ -2,7 +2,6 @@
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/facets.svg)](https://github.com/ICanBoogie/Facets/releases)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/Facets/master.svg)](http://travis-ci.org/ICanBoogie/Facets)
-[![HHVM](https://img.shields.io/hhvm/icanboogie/facets.svg)](http://hhvm.h4cc.de/package/icanboogie/facets)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Facets/master.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Facets)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/facets.svg)](https://packagist.org/packages/icanboogie/facets)
@@ -48,11 +47,11 @@ $model = ActiveRecord\get_model('articles');
 $fetcher = new BasicFetcher($model);
 $records = $fetcher([
 
-	'year' => "2010..2014",
-	'is_online' => true,
-	'category' => "music",
-	'order' => "-date",
-	'limit' => 10
+    'year' => "2010..2014",
+    'is_online' => true,
+    'category' => "music",
+    'order' => "-date",
+    'limit' => 10
 
 ]);
 ```
@@ -70,11 +69,11 @@ which allow for records to be fetched directly from the model, without requiring
 ```php
 $records = $model->fetch_records([
 
-	'year' => "2010..2014",
-	'is_online' => true,
-	'category' => "music",
-	'order' => "-date",
-	'limit' => 10
+    'year' => "2010..2014",
+    'is_online' => true,
+    'category' => "music",
+    'order' => "-date",
+    'limit' => 10
 
 ]);
 ```
@@ -138,34 +137,34 @@ use App\Modules\Vehicles;
 
 $criterion_list = new CriterionList([
 
-	'family'   => Vehicles\Families\FamilyCriterion::class,
-	'brand'    => Vehicles\Brands\BrandCriterion::class,
-	'category' => Vehicles\Categories\CategoryCriterion::class,
-	'color'    => Vehicles\Colors\ColorCriterion::class,
-	'energy'   => Vehicles\Energies\EnergyCriterion::class,
-	'engine'   => Vehicles\Engines\EngineCriterion::class,
-	'doors'    => Vehicles\DoorsCriterion::class,
-	'year'     => Vehicles\YearCriterion::class,
-	'price'    => Vehicles\PriceCriterion::class
+    'family'   => Vehicles\Families\FamilyCriterion::class,
+    'brand'    => Vehicles\Brands\BrandCriterion::class,
+    'category' => Vehicles\Categories\CategoryCriterion::class,
+    'color'    => Vehicles\Colors\ColorCriterion::class,
+    'energy'   => Vehicles\Energies\EnergyCriterion::class,
+    'engine'   => Vehicles\Engines\EngineCriterion::class,
+    'doors'    => Vehicles\DoorsCriterion::class,
+    'year'     => Vehicles\YearCriterion::class,
+    'price'    => Vehicles\PriceCriterion::class
 
 ]);
 
 $modifiers = $_GET + [
 
-	'q' => null,     // reserved keyword for query string
-	'order' => null  // reserved keyword for records order
+    'q' => null,     // reserved keyword for query string
+    'order' => null  // reserved keyword for records order
 
 ];
 
 if ($modifiers['q'])
 {
-	$q = $criterion_list->parse_query_string($modifiers['q']);
+    $q = $criterion_list->parse_query_string($modifiers['q']);
 
-	echo "The following words were matched: " . implode(' ', $q->matched) . '<br />';
-	echo "The following words were not matched: " . implode(' ', $q->not_matched) . '<br />';
+    echo "The following words were matched: " . implode(' ', $q->matched) . '<br />';
+    echo "The following words were not matched: " . implode(' ', $q->not_matched) . '<br />';
 
-	// we choose to _OR_ criterion values
-	$modifiers += array_map(function($v) { return implode('|', $v); }, $q->matches);
+    // we choose to _OR_ criterion values
+    $modifiers += array_map(function($v) { return implode('|', $v); }, $q->matches);
 }
 
 #
@@ -181,7 +180,7 @@ $criterion_list
 
 if ($modifiers['order'])
 {
-	$criterion_list->alter_query_with_order($query, $modifiers['order']);
+    $criterion_list->alter_query_with_order($query, $modifiers['order']);
 }
 
 $count = $query->count;            // count all the records matching the query
@@ -310,23 +309,23 @@ The following example demonstrates how the `nid` and `slug` criteria are associa
 
 return [
 
-	'facets' => [
+    'facets' => [
 
-		'nodes' => [
+        'nodes' => [
 
-			'nid' => Icybee\Modules\Nodes\NidCriterion::class,
-			'slug' => Icybee\Modules\Nodes\SlugCriterion::class
+            'nid' => Icybee\Modules\Nodes\NidCriterion::class,
+            'slug' => Icybee\Modules\Nodes\SlugCriterion::class
 
-		],
+        ],
 
-		'articles' => [
+        'articles' => [
 
-			'month' => Icybee\Modules\Articles\MonthCriterion::class,
-			'year' => Icybee\Modules\Articles\YearCriterion::class
+            'month' => Icybee\Modules\Articles\MonthCriterion::class,
+            'year' => Icybee\Modules\Articles\YearCriterion::class
 
-		]
+        ]
 
-	]
+    ]
 
 ];
 ```
@@ -355,7 +354,7 @@ array_keys($model->criteria);
 # [ 'nid', 'slug', 'month', 'year' ]
 ```
 
-The `criteria` and `criterion_list` getters are added to the [Model][] class 
+The `criteria` and `criterion_list` getters are added to the [Model][] class
 
 
 
@@ -393,26 +392,9 @@ The package requires PHP 5.5 or later.
 
 ## Installation
 
-The recommended way to install this package is through [Composer](http://getcomposer.org/):
-
+```bash
+composer require icanboogie/facets
 ```
-$ composer require icanboogie/facets
-```
-
-The following packages are required, you might want to check them out:
-
-- [icanboogie/activerecord](https://github.com/ICanBoogie/ActiveRecord)
-
-
-
-
-
-### Cloning the repository
-
-The package is [available on GitHub](https://github.com/ICanBoogie/Facets), its repository can be
-cloned with the following command line:
-
-	$ git clone https://github.com/ICanBoogie/Facets.git
 
 
 
@@ -432,16 +414,9 @@ the `make clean` command.
 
 ## Testing
 
-The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and
-[Composer](http://getcomposer.org/) need to be globally available to run the suite.
-The command installs dependencies as required. The `make test-coverage` command runs test suite
-and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned
-with the `make clean` command.
-
-The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
-
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Facets/master.svg)](https://travis-ci.org/ICanBoogie/Facets)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Facets/master.svg)](https://coveralls.io/r/ICanBoogie/Facets)
+Run `make test-container` to create and log into the test container, then run `make test` to run the
+test suite. Alternatively, run `make test-coverage` to run the test suite with test coverage. Open
+`build/coverage/index.html` to see the breakdown of the code coverage.
 
 
 
@@ -449,7 +424,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 ## License
 
-**icanboogie/facets** is licensed under the New BSD License. See the [LICENSE](LICENSE) file for details.
+**icanboogie/facets** is released under the [New BSD License](LICENSE).
 
 
 
