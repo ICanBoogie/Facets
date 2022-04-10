@@ -15,12 +15,14 @@ use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\ActiveRecord\Schema;
+use ICanBoogie\ActiveRecord\SchemaColumn;
 use ICanBoogie\Facets\Criterion\BooleanCriterion;
 use PHPUnit\Framework\TestCase;
 
 class BooleanCriterionTest extends TestCase
 {
-	static private $model;
+	static private Model $model;
 
 	static public function setupBeforeClass(): void
 	{
@@ -35,12 +37,12 @@ class BooleanCriterionTest extends TestCase
 			'one' => [
 
 				Model::NAME => 'example',
-				Model::SCHEMA => [
+				Model::SCHEMA => new Schema([
 
-					'id' => 'serial',
-					'is_online' => 'boolean'
+					'id' => SchemaColumn::serial(),
+					'is_online' => SchemaColumn::boolean(),
 
-				]
+				])
 			]
 		]);
 

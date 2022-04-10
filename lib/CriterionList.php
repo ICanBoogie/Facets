@@ -195,7 +195,7 @@ class CriterionList implements \IteratorAggregate, \ArrayAccess, ToArray
 	 */
 	public function alter_query_with_order(Query &$query, string $criterion_id, int $order_direction = 1): self
 	{
-		if ($criterion_id{0} == '-')
+		if ($criterion_id[0] == '-')
 		{
 			$order_direction = -1;
 			$criterion_id = \substr($criterion_id, 1);
