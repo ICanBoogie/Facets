@@ -11,123 +11,125 @@
 
 namespace ICanBoogie\Facets\CriterionValue;
 
-class IntervalCriterionValueTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class IntervalCriterionValueTest extends TestCase
 {
-	/**
-	 * @dataProvider provide_test_from
-	 */
-	public function test_from($s, $expected)
-	{
-		$v = IntervalCriterionValue::from($s);
+    /**
+     * @dataProvider provide_test_from
+     */
+    public function test_from($s, $expected)
+    {
+        $v = IntervalCriterionValue::from($s);
 
-		$this->assertSame($expected[0], $v->min);
-		$this->assertSame($expected[1], $v->max);
-		$this->assertSame($expected, $v->to_array());
-	}
+        $this->assertSame($expected[0], $v->min);
+        $this->assertSame($expected[1], $v->max);
+        $this->assertSame($expected, $v->to_array());
+    }
 
-	public function provide_test_from()
-	{
-		$s = IntervalCriterionValue::SEPARATOR;
+    public function provide_test_from()
+    {
+        $s = IntervalCriterionValue::SEPARATOR;
 
-		return [
+        return [
 
-			[ "123{$s}" ,   [ '123', null ] ],
-			[ "{$s}456" ,   [ null, '456' ] ],
-			[ "123{$s}456", [ '123', '456' ] ],
-			[ "123{$s}123", [ '123', '123' ] ]
+            [ "123{$s}" ,   [ '123', null ] ],
+            [ "{$s}456" ,   [ null, '456' ] ],
+            [ "123{$s}456", [ '123', '456' ] ],
+            [ "123{$s}123", [ '123', '123' ] ]
 
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @dataProvider provide_test_from_array
-	 */
-	public function test_from_array($a, $expected)
-	{
-		$v = IntervalCriterionValue::from($a);
+    /**
+     * @dataProvider provide_test_from_array
+     */
+    public function test_from_array($a, $expected)
+    {
+        $v = IntervalCriterionValue::from($a);
 
-		$this->assertInstanceOf(IntervalCriterionValue::class, $v);
-		$this->assertSame($expected[0], $v->min);
-		$this->assertSame($expected[1], $v->max);
-		$this->assertSame($expected, $v->to_array());
-	}
+        $this->assertInstanceOf(IntervalCriterionValue::class, $v);
+        $this->assertSame($expected[0], $v->min);
+        $this->assertSame($expected[1], $v->max);
+        $this->assertSame($expected, $v->to_array());
+    }
 
-	public function provide_test_from_array()
-	{
-		return [
+    public function provide_test_from_array()
+    {
+        return [
 
-			[ [ 'min' => null, 'max' => null ], [ null, null ] ],
-			[ [ 'min' => 1, 'max' => 1 ], [ 1, 1 ] ],
-			[ [ 'min' => 123, 'max' => null ], [ 123, null ] ],
-			[ [ 'min' => '123', 'max' => null ], [ '123', null ] ],
-			[ [ 'min' => 123, 'max' => '' ], [ 123, null ] ],
-			[ [ 'min' => '123', 'max' => '' ], [ '123', null ] ],
-			[ [ 'min' => null, 'max' => 456 ], [ null, 456 ] ],
-			[ [ 'min' => null, 'max' => '456' ], [ null, '456' ] ],
-			[ [ 'min' => '', 'max' => 456 ], [ null, 456 ] ],
-			[ [ 'min' => '', 'max' => '456' ], [ null, '456' ] ]
+            [ [ 'min' => null, 'max' => null ], [ null, null ] ],
+            [ [ 'min' => 1, 'max' => 1 ], [ 1, 1 ] ],
+            [ [ 'min' => 123, 'max' => null ], [ 123, null ] ],
+            [ [ 'min' => '123', 'max' => null ], [ '123', null ] ],
+            [ [ 'min' => 123, 'max' => '' ], [ 123, null ] ],
+            [ [ 'min' => '123', 'max' => '' ], [ '123', null ] ],
+            [ [ 'min' => null, 'max' => 456 ], [ null, 456 ] ],
+            [ [ 'min' => null, 'max' => '456' ], [ null, '456' ] ],
+            [ [ 'min' => '', 'max' => 456 ], [ null, 456 ] ],
+            [ [ 'min' => '', 'max' => '456' ], [ null, '456' ] ]
 
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @dataProvider provide_test_from_faulty
-	 */
-	public function test_from_faulty($from)
-	{
-		$v = IntervalCriterionValue::from($from);
+    /**
+     * @dataProvider provide_test_from_faulty
+     */
+    public function test_from_faulty($from)
+    {
+        $v = IntervalCriterionValue::from($from);
 
-		$this->assertNull($v);
-	}
+        $this->assertNull($v);
+    }
 
-	public function provide_test_from_faulty()
-	{
-		return [
+    public function provide_test_from_faulty()
+    {
+        return [
 
-			[ null ],
-			[ IntervalCriterionValue::SEPARATOR ],
-			[ " " . IntervalCriterionValue::SEPARATOR ],
-			[ IntervalCriterionValue::SEPARATOR . " " ],
-			[ " " . IntervalCriterionValue::SEPARATOR . " " ],
-			[ "12" . IntervalCriterionValue::SEPARATOR . "34" . IntervalCriterionValue::SEPARATOR . "56" ],
-			[ 123 ],
-			[ [ 123, 456 ] ],
-			[ [ 'min' => 123, 456 ] ],
-			[ [ 123, 'max' => 456 ] ],
-			[ [ 123, 456] ]
+            [ null ],
+            [ IntervalCriterionValue::SEPARATOR ],
+            [ " " . IntervalCriterionValue::SEPARATOR ],
+            [ IntervalCriterionValue::SEPARATOR . " " ],
+            [ " " . IntervalCriterionValue::SEPARATOR . " " ],
+            [ "12" . IntervalCriterionValue::SEPARATOR . "34" . IntervalCriterionValue::SEPARATOR . "56" ],
+            [ 123 ],
+            [ [ 123, 456 ] ],
+            [ [ 'min' => 123, 456 ] ],
+            [ [ 123, 'max' => 456 ] ],
+            [ [ 123, 456] ]
 
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @dataProvider provide_test_to_string
-	 */
-	public function test_to_string($from, $expected)
-	{
-		$v = IntervalCriterionValue::from($from);
+    /**
+     * @dataProvider provide_test_to_string
+     */
+    public function test_to_string($from, $expected)
+    {
+        $v = IntervalCriterionValue::from($from);
 
-		$this->assertSame($expected, (string) $v);
-	}
+        $this->assertSame($expected, (string) $v);
+    }
 
-	public function provide_test_to_string()
-	{
-		return [
+    public function provide_test_to_string()
+    {
+        return [
 
-			[ '123..456', '123..456' ],
-			[ ' 123..456', '123..456' ],
-			[ '123..456 ', '123..456' ],
-			[ ' 123..456 ', '123..456' ],
+            [ '123..456', '123..456' ],
+            [ ' 123..456', '123..456' ],
+            [ '123..456 ', '123..456' ],
+            [ ' 123..456 ', '123..456' ],
 
-			[ '123..', '123..' ],
-			[ ' 123.. ', '123..' ],
+            [ '123..', '123..' ],
+            [ ' 123.. ', '123..' ],
 
-			[ '..456', '..456' ],
-			[ ' ..456 ', '..456' ],
+            [ '..456', '..456' ],
+            [ ' ..456 ', '..456' ],
 
-			[ '123..123', '123' ],
-			[ [ 'min' => 123, 'max' => 123 ], '123' ],
-			[ [ 'min' => null, 'max' => null ], '' ],
+            [ '123..123', '123' ],
+            [ [ 'min' => 123, 'max' => 123 ], '123' ],
+            [ [ 'min' => null, 'max' => null ], '' ],
 
-		];
-	}
+        ];
+    }
 }

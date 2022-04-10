@@ -39,265 +39,259 @@ use ICanBoogie\Facets\RecordCollection;
  * is applied.
  * @property-read int $limit The maximum number of records that can be fetched, as defined by the
  * `limit` modifier.
+ *
+ * @template TValue of \ICanBoogie\ActiveRecord
+ * @implements Fetcher<TValue>
  */
 class BasicFetcher implements Fetcher
 {
-	use AccessorTrait;
-	use FetcherTrait;
+    /**
+     * @uses get_model
+     * @uses get_modifiers
+     * @uses get_query_string
+     * @uses get_order
+     * @uses get_offset
+     */
+    use AccessorTrait;
 
-	/**
-	 * The model from witch records are fetched.
-	 *
-	 * @var Model
-	 */
-	private $model;
+    /**
+     * @use FetcherTrait<TValue>
+     */
+    use FetcherTrait;
 
-	protected function get_model(): Model
-	{
-		return $this->model;
-	}
+    /**
+     * The model from witch records are fetched.
+     */
+    private Model $model;
 
-	/**
-	 * Fetch modifiers.
-	 *
-	 * @var array
-	 */
-	private $modifiers;
+    protected function get_model(): Model
+    {
+        return $this->model;
+    }
 
-	protected function get_modifiers(): array
-	{
-		return $this->modifiers;
-	}
+    /**
+     * Fetch modifiers.
+     *
+     * @var array<string, mixed>
+     */
+    private array $modifiers;
 
-	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options = [];
+    /**
+     * @return array<string, mixed>
+     */
+    protected function get_modifiers(): array
+    {
+        return $this->modifiers;
+    }
 
-	/**
-	 * Initial query.
-	 *
-	 * @var Query
-	 */
-	private $initial_query;
+    /**
+     * Options.
+     *
+     * @var array<string, mixed>
+     */
+    private array $options;
 
-	protected function get_initial_query(): Query
-	{
-		if (empty($this->initial_query))
-		{
-			$this->initial_query = $this->create_initial_query();
-		}
+    private Query $initial_query;
 
-		return $this->initial_query;
-	}
+    protected function get_initial_query(): Query
+    {
+        return $this->initial_query ??= $this->create_initial_query();
+    }
 
-	/**
-	 * The query used to fetch the records.
-	 *
-	 * @var Query
-	 */
-	private $query;
+    /**
+     * The query used to fetch the records.
+     */
+    private Query $query;
 
-	protected function get_query(): Query
-	{
-		return $this->query;
-	}
+    protected function get_query(): Query
+    {
+        return $this->query;
+    }
 
-	/**
-	 * Query string resolved from the modifiers.
-	 *
-	 * @var QueryString
-	 */
-	private $query_string;
+    /**
+     * Query string resolved from the modifiers.
+     */
+    private QueryString $query_string;
 
-	protected function get_query_string(): QueryString
-	{
-		return $this->query_string;
-	}
+    protected function get_query_string(): QueryString
+    {
+        return $this->query_string;
+    }
 
-	/**
-	 * Conditions resolved from the modifiers.
-	 *
-	 * @var array
-	 */
-	private $conditions = [];
+    /**
+     * Conditions resolved from the modifiers.
+     *
+     * @var array<string, mixed>
+     */
+    private array $conditions = [];
 
-	protected function get_conditions(): array
-	{
-		return $this->conditions;
-	}
+    /**
+     * @return array<string, mixed>
+     */
+    protected function get_conditions(): array
+    {
+        return $this->conditions;
+    }
 
-	/**
-	 * Order of the records, as found in the modifiers.
-	 *
-	 * @var string|null
-	 */
-	private $order;
+    /**
+     * Order of the records, as found in the modifiers.
+     */
+    private ?string $order;
 
-	protected function get_order(): ?string
-	{
-		return $this->order;
-	}
+    protected function get_order(): ?string
+    {
+        return $this->order;
+    }
 
-	/**
-	 * Limit of the number of records to fetch, as found in the modifiers.
-	 *
-	 * @var string|null
-	 */
-	private $limit;
+    /**
+     * Limit of the number of records to fetch, as found in the modifiers.
+     */
+    private int|null $limit;
 
-	protected function get_limit(): ?int
-	{
-		return $this->limit;
-	}
+    protected function get_limit(): ?int
+    {
+        return $this->limit;
+    }
 
-	/**
-	 * @var int|null
-	 */
-	private $offset;
+    private ?int $offset;
 
-	protected function get_offset(): ?int
-	{
-		return $this->offset;
-	}
+    protected function get_offset(): ?int
+    {
+        return $this->offset;
+    }
 
-	protected function get_page(): int
-	{
-		$limit = $this->limit;
+    protected function get_page(): int
+    {
+        $limit = $this->limit;
 
-		if (!$limit)
-		{
-			return 0;
-		}
+        if (!$limit) {
+            return 0;
+        }
 
-		return (int) ($this->offset / $this->limit);
-	}
+        return (int) ($this->offset / $this->limit);
+    }
 
-	/**
-	 * Number of records matching the query, before they are limited.
-	 *
-	 * @var int
-	 */
-	private $count;
+    /**
+     * Number of records matching the query, before they are limited.
+     */
+    private int $count;
 
-	protected function get_count(): int
-	{
-		return $this->count;
-	}
+    protected function get_count(): int
+    {
+        return $this->count;
+    }
 
-	/**
-	 * @param Model|ModelBindings $model
-	 * @param array $options
-	 */
-	public function __construct(Model $model, array $options = [])
-	{
-		$this->model = $model;
-		$this->options = $options;
-		$this->criterion_list = $this->alter_criterion_list($model->criterion_list);
-	}
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function __construct(Model $model, array $options = [])
+    {
+        $this->model = $model;
+        $this->options = $options;
+        /** @var Model|ModelBindings $model */
+        $this->criterion_list = $this->alter_criterion_list($model->criterion_list); // @phpstan-ignore-line
+    }
 
-	/**
-	 * Clones the {@link initial_query}, {@link query}, and {@link query_string} properties.
-	 */
-	public function __clone()
-	{
-		$this->initial_query = clone $this->initial_query;
-		$this->query = clone $this->query;
-		$this->query_string = clone $this->query_string;
-	}
+    /**
+     * Clones the {@link initial_query}, {@link query}, and {@link query_string} properties.
+     */
+    public function __clone()
+    {
+        $this->initial_query = clone $this->initial_query;
+        $this->query = clone $this->query;
+        $this->query_string = clone $this->query_string;
+    }
 
-	/**
-	 * Fetch records according to the specified modifiers.
-	 *
-	 * The method updates the following properties:
-	 *
-	 * - {@link $conditions}
-	 * - {@link $count}
-	 * - {@link $initial_query}
-	 * - {@link $limit}
-	 * - {@link $modifiers}
-	 * - {@link $offset}
-	 * - {@link $order}
-	 * - {@link $query_string}
-	 *
-	 * @param array $modifiers
-	 *
-	 * @return RecordCollection
-	 */
-	public function __invoke(array $modifiers): RecordCollection
-	{
-		$this->modifiers = $modifiers;
+    /**
+     * Fetch records according to the specified modifiers.
+     *
+     * The method updates the following properties:
+     *
+     * - {@link $conditions}
+     * - {@link $count}
+     * - {@link $initial_query}
+     * - {@link $limit}
+     * - {@link $modifiers}
+     * - {@link $offset}
+     * - {@link $order}
+     * - {@link $query_string}
+     *
+     * @param array<string, mixed> $modifiers
+     *
+     * @return RecordCollection<TValue>
+     */
+    public function __invoke(array $modifiers): RecordCollection
+    {
+        $this->modifiers = $modifiers;
 
-		[ $conditions, $properties ] = $this->parse_modifiers($modifiers);
+        [ $conditions, $properties ] = $this->parse_modifiers($modifiers);
 
-		$this->conditions = $conditions;
+        $this->conditions = $conditions;
 
-		foreach ($properties as $property => $value)
-		{
-			$this->$property = $value;
-		}
+        foreach ($properties as $property => $value) {
+            $this->$property = $value;
+        }
 
-		$query = clone $this->get_initial_query();
-		$query = $this->alter_query($query);
-		$query = $this->alter_query_with_conditions($query, $conditions);
-		$this->count = $this->count_records($query);
+        $query = clone $this->get_initial_query();
+        $query = $this->alter_query($query);
+        $query = $this->alter_query_with_conditions($query, $conditions);
+        $this->count = $this->count_records($query);
 
-		$query = $this->alter_query_with_order($query, $this->order);
-		$query = $this->alter_query_with_limit($query, $this->offset, $this->limit);
+        if ($this->order) {
+            $query = $this->alter_query_with_order($query, $this->order);
+        }
 
-		$this->query = $query;
+        $query = $this->alter_query_with_limit($query, $this->offset ?? 0, $this->limit);
 
-		$records = $this->fetch_records($query);
-		$this->alter_records($records);
+        $this->query = $query;
 
-		return new RecordCollection($records, clone $this);
-	}
+        $records = $this->fetch_records($query);
+        $this->alter_records($records);
 
-	/**
-	 * Create the initial query.
-	 *
-	 * @return Query
-	 */
-	protected function create_initial_query(): Query
-	{
-		return new Query($this->model);
-	}
+        return new RecordCollection($records, clone $this);
+    }
 
-	/**
-	 * Parse modifiers to extract conditions, and qualifiers.
-	 *
-	 * @param array $modifiers
-	 *
-	 * @return array
-	 */
-	protected function parse_modifiers(array $modifiers): array
-	{
-		$modifiers += [
+    /**
+     * Create the initial query.
+     */
+    protected function create_initial_query(): Query
+    {
+        return new Query($this->model);
+    }
 
-			'order' => null,
-			'limit' => null,
-			'page' => null,
-			'q' => null
+    /**
+     * Parse modifiers to extract conditions, and qualifiers.
+     *
+     * @param array<string, mixed> $modifiers
+     *
+     * @return array{0: array<string, mixed>, 1: array<string, mixed>}
+     */
+    protected function parse_modifiers(array $modifiers): array
+    {
+        $modifiers += [
 
-		];
+            'order' => null,
+            'limit' => null,
+            'page' => null,
+            'q' => null
 
-		$query_string = $this->parse_query_string($modifiers['q']);
+        ];
 
-		$conditions = [];
-		$this->alter_conditions($conditions, $modifiers + $query_string->conditions);
+        $query_string = $this->parse_query_string($modifiers['q']);
 
-		$limit = $modifiers['limit'];
-		$page = $modifiers['page'];
+        $conditions = [];
+        $this->alter_conditions($conditions, $modifiers + $query_string->conditions);
 
-		return [ $conditions, [
+        $limit = $modifiers['limit'];
+        $page = $modifiers['page'];
 
-			'order' => $modifiers['order'],
-			'limit' => $limit,
-			'offset' => $limit && $page ? $page * $limit : null,
-			'query_string' => $query_string
+        return [ $conditions, [
 
-		] ];
-	}
+            'order' => $modifiers['order'],
+            'limit' => $limit,
+            'offset' => $limit && $page ? $page * $limit : null,
+            'query_string' => $query_string
+
+        ] ];
+    }
 }

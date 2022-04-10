@@ -33,6 +33,7 @@
 	},
 	"require-dev": {
 		"icanboogie/event": "^4.0",
+		"phpstan/phpstan": "^1.5",
 		"phpunit/phpunit": "^9.5"
 	},
 	"autoload": {

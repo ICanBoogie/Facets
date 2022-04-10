@@ -11,89 +11,97 @@
 
 namespace ICanBoogie\Facets\CriterionValue;
 
+use Countable;
 use ICanBoogie\ToArray;
+
+use function array_keys;
+use function array_map;
+use function array_unique;
+use function array_values;
+use function count;
+use function current;
+use function explode;
+use function implode;
+use function is_array;
+use function trim;
 
 /**
  * Representation of a set of values, suitable for the SQL `IN()` function.
  *
  * A set of values is created by concatenating values with the pipe sign ("|") e.g. "1|2|3".
  */
-class SetCriterionValue implements ToArray, \Countable
+final class SetCriterionValue implements ToArray, Countable
 {
-	const SEPARATOR = '|';
+    public const SEPARATOR = '|';
 
-	/**
-	 * Instantiate a {@link SetCriterionValue} instance from a value.
-	 *
-	 * @param mixed $value
-	 *
-	 * @return SetCriterionValue|null
-	 */
-	static public function from($value): ?self
-	{
-		if (!$value)
-		{
-			return null;
-		}
+    /**
+     * Instantiate a {@link SetCriterionValue} instance from a value.
+     */
+    public static function from(mixed $value): ?self
+    {
+        if (!$value) {
+            return null;
+        }
 
-		if (\is_array($value))
-		{
-			if (\current($value) !== 'on')
-			{
-				return new static($value);
-			}
+        if (is_array($value)) {
+            if (current($value) !== 'on') {
+                return new self($value);
+            }
 
-			$set = \array_keys($value);
-		}
-		else
-		{
-			$value = \trim($value);
+            $set = array_keys($value);
+        } else {
+            $value = trim($value);
 
-			if ($value === self::SEPARATOR || \strpos($value, self::SEPARATOR) === false)
-			{
-				return null;
-			}
+            if ($value === self::SEPARATOR || !str_contains($value, self::SEPARATOR)) {
+                return null;
+            }
 
-			$set = \explode(self::SEPARATOR, $value);
-		}
+            $set = explode(self::SEPARATOR, $value);
+        }
 
-		$set = \array_map('trim', $set);
-		$set = \array_unique($set);
-		$set = \array_values($set);
+        $set = array_map('trim', $set);
+        $set = array_unique($set);
+        $set = array_values($set);
 
-		return new static($set);
-	}
+        return new self($set);
+    }
 
-	private $set;
+    /**
+     * @var array<int, mixed>
+     */
+    private array $set;
 
-	public function __construct(array $set)
-	{
-		$this->set = $set;
-	}
+    /**
+     * @param array<int, mixed> $set
+     */
+    public function __construct(array $set)
+    {
+        $this->set = $set;
+    }
 
-	/**
-	 * Formats the set into a string.
-	 *
-	 * @return string
-	 */
-	public function __toString(): string
-	{
-		return \implode(self::SEPARATOR, $this->set);
-	}
+    /**
+     * Formats the set into a string.
+     */
+    public function __toString(): string
+    {
+        return implode(self::SEPARATOR, $this->set);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function count()
-	{
-		return \count($this->set);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function count(): int
+    {
+        return count($this->set);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function to_array(): array
-	{
-		return $this->set;
-	}
+    /**
+     * @inheritdoc
+     *
+     * @return array<int, mixed>
+     */
+    public function to_array(): array
+    {
+        return $this->set;
+    }
 }

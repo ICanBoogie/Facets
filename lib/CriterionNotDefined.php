@@ -19,5 +19,4 @@ use ICanBoogie\OffsetNotDefined;
  */
 class CriterionNotDefined extends OffsetNotDefined implements Exception
 {
-
 }

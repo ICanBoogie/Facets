@@ -22,76 +22,76 @@ use PHPUnit\Framework\TestCase;
 
 class BooleanCriterionTest extends TestCase
 {
-	static private Model $model;
+    private static Model $model;
 
-	static public function setupBeforeClass(): void
-	{
-		$connections = new ConnectionCollection([
+    public static function setupBeforeClass(): void
+    {
+        $connections = new ConnectionCollection([
 
-			'primary' => 'sqlite::memory:'
+            'primary' => 'sqlite::memory:'
 
-		]);
+        ]);
 
-		$models = new ModelCollection($connections, [
+        $models = new ModelCollection($connections, [
 
-			'one' => [
+            'one' => [
 
-				Model::NAME => 'example',
-				Model::SCHEMA => new Schema([
+                Model::NAME => 'example',
+                Model::SCHEMA => new Schema([
 
-					'id' => SchemaColumn::serial(),
-					'is_online' => SchemaColumn::boolean(),
+                    'id' => SchemaColumn::serial(),
+                    'is_online' => SchemaColumn::boolean(),
 
-				])
-			]
-		]);
+                ])
+            ]
+        ]);
 
-		self::$model = $models['one'];
-	}
+        self::$model = $models['one'];
+    }
 
-	/**
-	 * @dataProvider provide_boolean_value
-	 */
-	public function test_parse_value($expected, $value)
-	{
-		$criterion = new BooleanCriterion('online');
+    /**
+     * @dataProvider provide_boolean_value
+     */
+    public function test_parse_value($expected, $value)
+    {
+        $criterion = new BooleanCriterion('online');
 
-		$this->assertSame($expected, $criterion->parse_value($value));
-	}
+        $this->assertSame($expected, $criterion->parse_value($value));
+    }
 
-	/**
-	 * @dataProvider provide_boolean_value
-	 */
-	public function test_alter_query_with_value($expected, $value)
-	{
-		$query = new Query(self::$model);
-		$criterion = new BooleanCriterion('online', [ 'column_name' => 'is_online' ]);
+    /**
+     * @dataProvider provide_boolean_value
+     */
+    public function test_alter_query_with_value($expected, $value)
+    {
+        $query = new Query(self::$model);
+        $criterion = new BooleanCriterion('online', [ 'column_name' => 'is_online' ]);
 
-		$value = $criterion->parse_value($value);
-		$criterion->alter_query_with_value($query, $value);
+        $value = $criterion->parse_value($value);
+        $criterion->alter_query_with_value($query, $value);
 
-		$this->assertSame([ "(`is_online` = ?)" ], $query->conditions);
-		$this->assertSame([ $expected ], $query->conditions_args);
-	}
+        $this->assertSame([ "(`is_online` = ?)" ], $query->conditions);
+        $this->assertSame([ $expected ], $query->conditions_args);
+    }
 
-	public function provide_boolean_value()
-	{
-		return [
+    public function provide_boolean_value()
+    {
+        return [
 
-			[ false, '' ],
-			[ false, 'abba' ],
-			[ false, '0' ],
-			[ false, 'no' ],
-			[ false, 'false' ],
-			[ false, 'off' ],
-			[ false, false ],
+            [ false, '' ],
+            [ false, 'abba' ],
+            [ false, '0' ],
+            [ false, 'no' ],
+            [ false, 'false' ],
+            [ false, 'off' ],
+            [ false, false ],
 
-			[ true, '1' ],
-			[ true, 'yes' ],
-			[ true, 'true' ],
-			[ true, 'on' ],
-			[ true, true ]
+            [ true, '1' ],
+            [ true, 'yes' ],
+            [ true, 'true' ],
+            [ true, 'on' ],
+            [ true, true ]
 
-		];
-	}
+        ];
+    }
 }

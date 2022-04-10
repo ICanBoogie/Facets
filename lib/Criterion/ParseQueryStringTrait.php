@@ -21,32 +21,30 @@ use ICanBoogie\Facets\QueryStringWord;
  */
 trait ParseQueryStringTrait
 {
-	/**
-	 * Matches the {@link QueryString} against an array of normalized matchables.
-	 *
-	 * @param QueryString $q
-	 */
-	public function parse_query_string(QueryString $q): void
-	{
-		$matchables = $this->provide_query_string_matchables();
+    /**
+     * Matches the {@link QueryString} against an array of normalized matchables.
+     *
+     * @param QueryString $q
+     */
+    public function parse_query_string(QueryString $q): void
+    {
+        $matchables = $this->provide_query_string_matchables();
 
-		/* @var $word QueryStringWord */
+        /* @var $word QueryStringWord */
 
-		foreach ($q->not_matched as $word)
-		{
-			$value = array_search($word->normalized, $matchables);
+        foreach ($q->not_matched as $word) {
+            $value = array_search($word->normalized, $matchables);
 
-			if ($value === false)
-			{
-				continue;
-			}
+            if ($value === false) {
+                continue;
+            }
 
-			$word->match = [ $this->id => $value ];
-		}
-	}
+            $word->match = [ $this->id => $value ];
+        }
+    }
 
-	/**
-	 * @return array An array of value/normalized_match pairs.
-	 */
-	abstract protected function provide_query_string_matchables(): array;
+    /**
+     * @return array An array of value/normalized_match pairs.
+     */
+    abstract protected function provide_query_string_matchables(): array;
 }

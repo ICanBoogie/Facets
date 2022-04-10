@@ -13,35 +13,35 @@ namespace ICanBoogie\Facets\Criterion;
 
 use ICanBoogie\ActiveRecord\Query;
 
+use function is_string;
+
 /**
  * A boolean criterion.
+ *
+ * @template-extends BasicCriterion<string>
  */
 class DateCriterion extends BasicCriterion
 {
-	public function alter_query_with_value(Query $query, $value): Query
-	{
-		if (!$value)
-		{
-			return $query;
-		}
+    public function alter_query_with_value(Query $query, mixed $value): Query
+    {
+        if (!$value) {
+            return $query;
+        }
 
-		$field = $this->id;
+        assert(is_string($value));
 
-		list($year, $month, $day) = explode('-', $value) + [ 0, 0, 0 ];
+        $field = $this->id;
 
-		if ($day)
-		{
-			$query->and("DATE(`$field`) = ?", "$year-$month-$day");
-		}
-		else if ($month)
-		{
-			$query->and("YEAR(`$field`) = ? AND MONTH(`$field`) = ?", (int) $year, (int) $month);
-		}
-		else if ($year)
-		{
-			$query->and("YEAR(`$field`) = ?", (int) $year);
-		}
+        [ $year, $month, $day ] = explode('-', $value) + [ 0, 0, 0 ];
 
-		return $query;
-	}
+        if ($day) {
+            $query->and("DATE(`$field`) = ?", "$year-$month-$day");
+        } elseif ($month) {
+            $query->and("YEAR(`$field`) = ? AND MONTH(`$field`) = ?", (int) $year, (int) $month);
+        } elseif ($year) {
+            $query->and("YEAR(`$field`) = ?", (int) $year);
+        }
+
+        return $query;
+    }
 }

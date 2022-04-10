@@ -18,5 +18,4 @@ namespace ICanBoogie\Facets;
  */
 trait ModelBindings
 {
-
 }

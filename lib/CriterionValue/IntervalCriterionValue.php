@@ -13,93 +13,92 @@ namespace ICanBoogie\Facets\CriterionValue;
 
 use ICanBoogie\ToArray;
 
+use function array_key_exists;
+use function array_map;
+use function count;
+use function explode;
+use function is_array;
+use function trim;
+
 /**
  * Representation of an interval, suitable for the SQL `BETWEEN` operator.
  *
  * An interval is created by separating two values with two dots ("..") e.g. "2000..2014".
  */
-class IntervalCriterionValue implements ToArray
+final class IntervalCriterionValue implements ToArray
 {
-	const SEPARATOR = '..';
+    public const SEPARATOR = '..';
 
-	/**
-	 * Instantiate a {@link IntervalCriterionValue} instance from a value.
-	 *
-	 * @param mixed $value
-	 *
-	 * @return IntervalCriterionValue|null
-	 */
-	static public function from($value): ?self
-	{
-		if (!$value)
-		{
-			return null;
-		}
+    /**
+     * Instantiate a {@link IntervalCriterionValue} instance from a value.
+     */
+    public static function from(mixed $value): ?self
+    {
+        if (!$value) {
+            return null;
+        }
 
-		if (\is_array($value))
-		{
-			if (!\array_key_exists('min', $value) || !\array_key_exists('max', $value))
-			{
-				return null;
-			}
+        if (is_array($value)) {
+            if (!array_key_exists('min', $value) || !array_key_exists('max', $value)) {
+                return null;
+            }
 
-			$min = $value['min'];
-			$max = $value['max'];
-		}
-		else
-		{
-			$value = \trim($value);
+            $min = $value['min'];
+            $max = $value['max'];
+        } else {
+            $value = trim($value);
 
-			if ($value === self::SEPARATOR || \strpos($value, self::SEPARATOR) === false)
-			{
-				return null;
-			}
+            if ($value === self::SEPARATOR || !str_contains($value, self::SEPARATOR)) {
+                return null;
+            }
 
-			$interval = \explode(self::SEPARATOR, $value);
+            $interval = explode(self::SEPARATOR, $value);
 
-			if (\count($interval) != 2)
-			{
-				return null;
-			}
+            if (count($interval) != 2) {
+                return null;
+            }
 
-			[ $min, $max ] = \array_map('trim', $interval);
-		}
+            [ $min, $max ] = array_map('trim', $interval);
+        }
 
-		if ($min === '') $min = null;
-		if ($max === '') $max = null;
+        if ($min === '') {
+            $min = null;
+        }
+        if ($max === '') {
+            $max = null;
+        }
 
-		return new static($min, $max);
-	}
+        return new self($min, $max);
+    }
 
-	public $min;
-	public $max;
+    public int|string|null $min;
+    public int|string|null $max;
 
-	public function __construct($min, $max)
-	{
-		$this->min = $min;
-		$this->max = $max;
-	}
+    public function __construct(int|string|null $min, int|string|null $max)
+    {
+        $this->min = $min;
+        $this->max = $max;
+    }
 
-	public function __toString(): string
-	{
-		if (!$this->min && !$this->max)
-		{
-			return '';
-		}
+    public function __toString(): string
+    {
+        if (!$this->min && !$this->max) {
+            return '';
+        }
 
-		if ($this->min == $this->max)
-		{
-			return (string) $this->min;
-		}
+        if ($this->min == $this->max) {
+            return (string) $this->min;
+        }
 
-		return $this->min . self::SEPARATOR . $this->max;
-	}
+        return $this->min . self::SEPARATOR . $this->max;
+    }
 
-	/**
-	 * @return array An array made of the {@link $min} and {@link max} values.
-	 */
-	public function to_array(): array
-	{
-		return [ $this->min, $this->max ];
-	}
+    /**
+     * @return array{ 0: int|string|null, 1: int|string|null}
+     *     An array made of the {@link $min} and {@link max} values.
+     */
+    public function to_array(): array
+    {
+        return [ $this->min, $this->max ];
+    }
 }

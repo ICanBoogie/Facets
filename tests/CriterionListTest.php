@@ -15,10 +15,10 @@ use PHPUnit\Framework\TestCase;
 
 class CriterionListTest extends TestCase
 {
-	public function test_get_undefined()
-	{
-		$this->expectException(CriterionNotDefined::class);
-		$l = new CriterionList;
-		$l['undefined'];
-	}
+    public function test_get_undefined()
+    {
+        $this->expectException(CriterionNotDefined::class);
+        $l = new CriterionList();
+        $l['undefined'];
+    }
 }

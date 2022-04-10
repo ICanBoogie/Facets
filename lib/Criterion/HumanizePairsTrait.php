@@ -19,29 +19,26 @@ use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
  */
 trait HumanizePairsTrait
 {
-	abstract protected function get_humanize_pairs();
+    abstract protected function get_humanize_pairs();
 
-	public function humanize($value)
-	{
-		$pairs = $this->get_humanize_pairs();
+    public function humanize($value)
+    {
+        $pairs = $this->get_humanize_pairs();
 
-		if ($value instanceof SetCriterionValue)
-		{
-			$humanized = [];
+        if ($value instanceof SetCriterionValue) {
+            $humanized = [];
 
-			foreach ($value->to_array() as $value)
-			{
-				if (empty($pairs[$value]))
-				{
-					continue;
-				}
+            foreach ($value->to_array() as $value) {
+                if (empty($pairs[$value])) {
+                    continue;
+                }
 
-				$humanized[] = $pairs[$value];
-			}
+                $humanized[] = $pairs[$value];
+            }
 
-			return $humanized;
-		}
+            return $humanized;
+        }
 
-		return empty($pairs[$value]) ? null : $pairs[$value];
-	}
+        return empty($pairs[$value]) ? null : $pairs[$value];
+    }
 }

@@ -11,34 +11,35 @@
 
 namespace ICanBoogie\Facets\Criterion;
 
+use ICanBoogie\Facets\Criterion;
 use ICanBoogie\Facets\QueryString;
 
 /**
  * A boolean criterion.
+ *
+ * @template-extends BasicCriterion<bool>
  */
 class BooleanCriterion extends BasicCriterion
 {
-	/**
-	 * @inheritdoc
-	 */
-	public function parse_value($value)
-	{
-		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function parse_value(mixed $value)
+    {
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function parse_query_string(QueryString $q): void
-	{
-		foreach ($q->not_matched as $word)
-		{
-			if ($word->normalized !== $this->id)
-			{
-				continue;
-			}
+    /**
+     * @inheritdoc
+     */
+    public function parse_query_string(QueryString $q): void
+    {
+        foreach ($q->not_matched as $word) {
+            if ($word->normalized !== $this->id) {
+                continue;
+            }
 
-			$word->match = [ $this->id => true ];
-		}
-	}
+            $word->match = [ $this->id => true ];
+        }
+    }
 }

@@ -11,15 +11,22 @@
 
 namespace ICanBoogie\Facets;
 
+use ArrayIterator;
+use Countable;
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Facets\Fetcher\BasicFetcher;
 use ICanBoogie\ToArray;
+use IteratorAggregate;
+
+use function count;
+use function in_array;
+use function reset;
 
 /**
  * A collection of records fetched by a {@link BasicFetcher} instance.
  *
- * @property-read BasicFetcher $fetcher
+ * @property-read Fetcher<TValue> $fetcher
  * @property-read array $conditions The conditions used to fetch the records.
  * @property-read int $limit The maximum number of records.
  * @property-read int $page The current page.
@@ -28,90 +35,104 @@ use ICanBoogie\ToArray;
  * @property-read ActiveRecord\Query $initial_query
  * @property-read ActiveRecord\Query $query
  * @property-read ActiveRecord $one The first record in the collection.
+ *
+ * @template TValue of ActiveRecord
+ * @implements IteratorAggregate<int, TValue>
  */
-class RecordCollection implements \IteratorAggregate, \Countable, ToArray
+class RecordCollection implements IteratorAggregate, Countable, ToArray
 {
-	use AccessorTrait;
+    /**
+     * @uses get_fetcher
+     * @uses get_one
+     * @uses get_total_count
+     */
+    use AccessorTrait;
 
-	/**
-	 * Properties forwarded to the {@link BasicFetcher} instance.
-	 *
-	 * @var array
-	 */
-	static private $forwarded_properties = [ 'conditions', 'initial_query', 'limit', 'page', 'query' ];
+    /**
+     * Properties forwarded to the {@link BasicFetcher} instance.
+     *
+     * @var array<int, string>
+     */
+    private static array $forwarded_properties = [ 'conditions', 'initial_query', 'limit', 'page', 'query' ];
 
-	/**
-	 * @var ActiveRecord[]
-	 */
-	private $records;
+    /**
+     * @var array<int, TValue>
+     */
+    private array $records;
 
-	/**
-	 * @var Fetcher
-	 */
-	private $fetcher;
+    /**
+     * @var Fetcher<TValue>
+     */
+    private Fetcher $fetcher;
 
-	protected function get_fetcher(): Fetcher
-	{
-		return $this->fetcher;
-	}
+    /**
+     * @return Fetcher<TValue>
+     */
+    protected function get_fetcher(): Fetcher
+    {
+        return $this->fetcher;
+    }
 
-	/**
-	 * Returns the first record in the collection.
-	 *
-	 * @return ActiveRecord|null
-	 */
-	protected function get_one(): ?ActiveRecord
-	{
-		return \reset($this->records);
-	}
+    /**
+     * Returns the first record in the collection.
+     *
+     * @return TValue|null
+     */
+    protected function get_one(): ?ActiveRecord
+    {
+        return reset($this->records) ?: null;
+    }
 
-	/**
-	 * Returns the number of records matching the query, without range limitation.
-	 *
-	 * @return int
-	 */
-	protected function get_total_count(): int
-	{
-		return $this->fetcher->count;
-	}
+    /**
+     * Returns the number of records matching the query, without range limitation.
+     */
+    protected function get_total_count(): int
+    {
+        return $this->fetcher->count;
+    }
 
-	public function __construct(array $records, Fetcher $fetcher)
-	{
-		$this->records = $records;
-		$this->fetcher = $fetcher;
-	}
+    /**
+     * @param array<int, TValue> $records
+     * @param Fetcher<TValue> $fetcher
+     */
+    public function __construct(array $records, Fetcher $fetcher)
+    {
+        $this->records = $records;
+        $this->fetcher = $fetcher;
+    }
 
-	public function __get($property)
-	{
-		if (\in_array($property, self::$forwarded_properties))
-		{
-			return $this->fetcher->$property;
-		}
+    public function __get(string $property): mixed
+    {
+        if (in_array($property, self::$forwarded_properties)) {
+            return $this->fetcher->$property;
+        }
 
-		return $this->accessor_get($property);
-	}
+        return $this->accessor_get($property);
+    }
 
-	/**
-	 * @return \ArrayIterator
-	 */
-	public function getIterator()
-	{
-		return new \ArrayIterator($this->records);
-	}
+    /**
+     * @return ArrayIterator<int, TValue>
+     */
+    public function getIterator(): ArrayIterator
+    {
+        return new ArrayIterator($this->records);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function count()
-	{
-		return \count($this->records);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function count(): int
+    {
+        return count($this->records);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function to_array()
-	{
-		return $this->records;
-	}
+    /**
+     * @inheritdoc
+     *
+     * @return array<int, TValue>
+     */
+    public function to_array(): array
+    {
+        return $this->records;
+    }
 }

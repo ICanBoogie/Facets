@@ -24,57 +24,56 @@ use function ICanBoogie\normalize;
  */
 class QueryStringWord
 {
-	use AccessorTrait;
+    /**
+     * @uses get_normalized
+     * @uses get_previous
+     * @uses get_next
+     */
+    use AccessorTrait;
 
-	public $match = [];
+    /**
+     * @var array<string, mixed>
+     */
+    public array $match = [];
 
-	/**
-	 * @var string
-	 */
-	protected $word;
+    private string $word;
 
-	/**
-	 * Normalized {@link $word}.
-	 *
-	 * @var string
-	 */
-	protected $normalized;
+    /**
+     * Normalized {@link $word}.
+     *
+     * @var string
+     */
+    private string $normalized;
 
-	protected function get_normalized(): string
-	{
-		return $this->normalized;
-	}
+    protected function get_normalized(): string
+    {
+        return $this->normalized;
+    }
 
-	protected $q;
+    private QueryString $q;
 
-	/**
-	 * @return QueryStringWord|null
-	 */
-	protected function get_previous(): ?QueryStringWord
-	{
-		return $this->q->before($this);
-	}
+    protected function get_previous(): ?QueryStringWord
+    {
+        return $this->q->before($this);
+    }
 
-	/**
-	 * @return QueryStringWord|null
-	 */
-	protected function get_next(): ?QueryStringWord
-	{
-		return $this->q->after($this);
-	}
+    protected function get_next(): ?QueryStringWord
+    {
+        return $this->q->after($this);
+    }
 
-	public function __construct(string $word, QueryString $q)
-	{
-		$this->word = $word;
-		$this->normalized = normalize($word);
-		$this->q = $q;
-	}
+    public function __construct(string $word, QueryString $q)
+    {
+        $this->word = $word;
+        $this->normalized = normalize($word);
+        $this->q = $q;
+    }
 
-	/**
-	 * Returns the query string word.
-	 */
-	public function __toString(): string
-	{
-		return $this->word;
-	}
+    /**
+     * Returns the query string word.
+     */
+    public function __toString(): string
+    {
+        return $this->word;
+    }
 }

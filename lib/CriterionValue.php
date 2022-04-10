@@ -14,6 +14,8 @@ namespace ICanBoogie\Facets;
 use ICanBoogie\Facets\CriterionValue\IntervalCriterionValue;
 use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
 
+use function trim;
+
 /**
  * Representation of a generic criterion value.
  *
@@ -21,71 +23,68 @@ use ICanBoogie\Facets\CriterionValue\SetCriterionValue;
  */
 class CriterionValue
 {
-	/**
-	 * Creates an instance from the specified criterion value.
-	 *
-	 * Only instances of {@link SetCriterionValue} and {@link IntervalCriterionValue} are currently
-	 * supported. The criterion value is returned as is if it cannot be represented by either one
-	 * of these classes.
-	 *
-	 * Note: {@link IntervalCriterionValue} instances are replaced with simpler values whenever
-	 * possible. For instance `1..1` or `[ 'min' => 1, 'max' => 1 ]` are both replaced by `1`.
-	 *
-	 * @param mixed $value
-	 *
-	 * @return SetCriterionValue|IntervalCriterionValue|mixed
-	 */
-	static public function from($value)
-	{
-		if ((!$value && $value !== 0 && $value !== '0')
-		|| $value === SetCriterionValue::SEPARATOR
-		|| $value === IntervalCriterionValue::SEPARATOR)
-		{
-			return null;
-		}
+    /**
+     * Creates an instance from the specified criterion value.
+     *
+     * Only instances of {@link SetCriterionValue} and {@link IntervalCriterionValue} are currently
+     * supported. The criterion value is returned as is if it cannot be represented by either one
+     * of these classes.
+     *
+     * Note: {@link IntervalCriterionValue} instances are replaced with simpler values whenever
+     * possible. For instance `1..1` or `[ 'min' => 1, 'max' => 1 ]` are both replaced by `1`.
+     *
+     * @param mixed $value
+     *
+     * @return SetCriterionValue|IntervalCriterionValue|mixed
+     */
+    public static function from(mixed $value): mixed
+    {
+        if (
+            (!$value && $value !== 0 && $value !== '0')
+            || $value === SetCriterionValue::SEPARATOR
+            || $value === IntervalCriterionValue::SEPARATOR
+        ) {
+            return null;
+        }
 
-		#
+        #
 
-		$instance = IntervalCriterionValue::from($value);
+        $instance = IntervalCriterionValue::from($value);
 
-		if ($instance instanceof IntervalCriterionValue)
-		{
-			if ($instance->min == $instance->max)
-			{
-				return $instance->min;
-			}
+        if ($instance instanceof IntervalCriterionValue) {
+            if ($instance->min == $instance->max) {
+                return $instance->min;
+            }
 
-			return $instance;
-		}
+            return $instance;
+        }
 
-		#
+        #
 
-		$instance = SetCriterionValue::from($value);
+        $instance = SetCriterionValue::from($value);
 
-		if ($instance instanceof SetCriterionValue)
-		{
-			if ($instance->count() !== 1)
-			{
-				return $instance;
-			}
+        if ($instance instanceof SetCriterionValue) {
+            if ($instance->count() !== 1) {
+                return $instance;
+            }
 
-			$value = (string) $instance;
-		}
+            $value = (string) $instance;
+        }
 
-		#
+        #
 
-		return \trim($value);
-	}
+        return trim($value);
+    }
 
-	private $value;
+    private mixed $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct(mixed $value)
+    {
+        $this->value = $value;
+    }
 
-	public function __toString()
-	{
-		return (string) $this->value;
-	}
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
 }

@@ -20,33 +20,41 @@ use ICanBoogie\Facets\RecordCollection;
  * Event hooks may use this event to alter records fetched by a {@link BasicFetcher} instance.
  *
  * @property RecordCollection $instance
+ *
+ * @template TValue of \ICanBoogie\ActiveRecord
  */
 class AlterEvent extends Event
 {
-	const TYPE = 'alter';
+    public const TYPE = 'alter';
 
-	/**
-	 * @var RecordCollection
-	 */
-	private $instance;
+    /**
+     * @var RecordCollection<TValue>
+     */
+    private RecordCollection $instance;
 
-	protected function get_instance(): RecordCollection
-	{
-		return $this->instance;
-	}
+    /**
+     * @return RecordCollection<TValue>
+     */
+    protected function get_instance(): RecordCollection
+    {
+        return $this->instance;
+    }
 
-	protected function set_instance(RecordCollection $instance): void
-	{
-		$this->instance = $instance;
-	}
+    /**
+     * @param RecordCollection<TValue> $instance
+     */
+    protected function set_instance(RecordCollection $instance): void
+    {
+        $this->instance = $instance;
+    }
 
-	/**
-	 * @param RecordCollection $target
-	 */
-	public function __construct(RecordCollection &$target)
-	{
-		$this->instance = &$target;
+    /**
+     * @param RecordCollection<TValue> $target
+     */
+    public function __construct(RecordCollection &$target)
+    {
+        $this->instance = &$target;
 
-		parent::__construct($target, self::TYPE);
-	}
+        parent::__construct($target, self::TYPE);
+    }
 }
